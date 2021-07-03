@@ -24,4 +24,18 @@ public class AlertUtils {
     public static void error(String message) {
         JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
+
+    public static boolean confirmation(String message) {
+        int n = JOptionPane.showConfirmDialog(
+                null,
+                "Are you sure ?",
+                message,
+                JOptionPane.YES_NO_OPTION);
+
+        if (n == JOptionPane.YES_OPTION) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
