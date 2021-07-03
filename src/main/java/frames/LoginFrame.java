@@ -6,13 +6,19 @@
 package frames;
 
 import configrations.DbConnector;
+import configrations.MySqlResponse;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import utils.AlertUtils;
 
 /**
  *
  * @author monieuzzaman
  */
 public class LoginFrame extends javax.swing.JFrame {
-
+    private boolean isLogged = false;
     /**
      * Creates new form LoginFrame
      */
@@ -192,7 +198,7 @@ public class LoginFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void exitjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitjButtonActionPerformed
-       exit();
+        exit();
     }//GEN-LAST:event_exitjButtonActionPerformed
 
     private void loginjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginjButtonActionPerformed
@@ -255,12 +261,48 @@ public class LoginFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void login() {
-    
-      DbConnector connector = new DbConnector();
- 
+       
+        DbConnector connector = new DbConnector();
+        connector.getQueryExecutor("SELECT * FROM `user` WHERE `phone_no`='" + usernameTextField.getText().toString() + "' AND `password`='" + passwordTextField.getText().toString() + "'", new MySqlResponse() {
+            @Override
+            public void onGetResponse(ResultSet resultSet) {
+                
+                try {
+                    if (!resultSet.isBeforeFirst()) {
+                        AlertUtils.warn("Wrong phone no or password.");
+                    } else {
+                        while (resultSet.next()) {
+                            String id = resultSet.getString("name");
+                            isLogged= true;
+                            new HomeFrame().setVisible(true);
+                            // print the results
+                            System.out.format("%s\n", id);
+                        }
+                    }
+
+                } catch (SQLException ex) {
+                    throw new UnsupportedOperationException(ex);
+                }
+            }
+
+            @Override
+            public void onUpdateAndDeleteResponse(int result) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void onError(String error) {
+                throw new UnsupportedOperationException(error); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
+      
+        if(isLogged)
+        {
+          this.setVisible(false);
+        }
     }
 
     private void exit() {
-       System.exit(0);
+        System.exit(0);
     }
 }
