@@ -148,8 +148,14 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="usernameTextField">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="admin"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="passwordTextField">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="admin"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>

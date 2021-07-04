@@ -79,6 +79,10 @@ public class LoginFrame extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
         jLabel2.setText("Username:");
 
+        usernameTextField.setText("admin");
+
+        passwordTextField.setText("admin");
+
         jLabel3.setText("Password:");
 
         loginjButton.setText("Login");

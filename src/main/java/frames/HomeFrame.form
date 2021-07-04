@@ -20,6 +20,16 @@
         </Menu>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JMenuItem" name="jMenuItem12">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jMenuItem12"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JMenuItem" name="jMenuItem13">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jMenuItem13"/>
+      </Properties>
+    </Component>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="jMenu1">
@@ -38,6 +48,11 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Change Password"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem14">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Logout"/>
               </Properties>
             </MenuItem>
           </SubComponents>
@@ -153,8 +168,8 @@
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jPanel2" max="32767" attributes="0"/>
                   <Component id="jPanel3" max="32767" attributes="0"/>
+                  <Component id="basePanel" max="32767" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -163,7 +178,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jPanel1" max="32767" attributes="0"/>
           <Group type="102" attributes="0">
-              <Component id="jPanel2" max="32767" attributes="0"/>
+              <Component id="basePanel" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
           </Group>
@@ -188,14 +203,14 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="jLabel1" max="32767" attributes="0"/>
               <Component id="selljButton" alignment="0" max="32767" attributes="0"/>
-              <Component id="returnjButton" alignment="0" pref="115" max="32767" attributes="0"/>
-              <Component id="returnjButton1" alignment="0" pref="115" max="32767" attributes="0"/>
-              <Component id="returnjButton2" alignment="0" pref="115" max="32767" attributes="0"/>
-              <Component id="returnjButton3" alignment="0" pref="115" max="32767" attributes="0"/>
+              <Component id="returnjButton" alignment="0" max="32767" attributes="0"/>
+              <Component id="myProductsjButton" alignment="0" pref="115" max="32767" attributes="0"/>
+              <Component id="purchasejButton" alignment="0" max="32767" attributes="0"/>
+              <Component id="transactionjButton" alignment="0" max="32767" attributes="0"/>
               <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
-              <Component id="returnjButton4" alignment="0" pref="115" max="32767" attributes="0"/>
-              <Component id="returnjButton5" alignment="0" pref="115" max="32767" attributes="0"/>
-              <Component id="returnjButton6" alignment="0" pref="115" max="32767" attributes="0"/>
+              <Component id="sellReportjButton" alignment="0" max="32767" attributes="0"/>
+              <Component id="purchaseReportjButton" alignment="0" max="32767" attributes="0"/>
+              <Component id="ProductReportjButton" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -208,19 +223,19 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="returnjButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="returnjButton1" min="-2" max="-2" attributes="0"/>
+                  <Component id="myProductsjButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="returnjButton2" min="-2" max="-2" attributes="0"/>
+                  <Component id="purchasejButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="returnjButton3" min="-2" max="-2" attributes="0"/>
+                  <Component id="transactionjButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="returnjButton4" min="-2" max="-2" attributes="0"/>
+                  <Component id="sellReportjButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="returnjButton5" min="-2" max="-2" attributes="0"/>
+                  <Component id="purchaseReportjButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="returnjButton6" min="-2" max="-2" attributes="0"/>
+                  <Component id="ProductReportjButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="140" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -243,26 +258,41 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Sell"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="selljButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="returnjButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Sell Return"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="returnjButtonActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="returnjButton1">
+        <Component class="javax.swing.JButton" name="myProductsjButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="My Products"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="myProductsjButtonActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="returnjButton2">
+        <Component class="javax.swing.JButton" name="purchasejButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Purchase"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="purchasejButtonActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="returnjButton3">
+        <Component class="javax.swing.JButton" name="transactionjButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Transaction"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="transactionjButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
@@ -276,46 +306,35 @@
             <Property name="text" type="java.lang.String" value="Reports"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="returnjButton4">
+        <Component class="javax.swing.JButton" name="sellReportjButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Sell Report"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="returnjButton4ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sellReportjButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="returnjButton5">
+        <Component class="javax.swing.JButton" name="purchaseReportjButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Purchase"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="returnjButton5ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="purchaseReportjButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="returnjButton6">
+        <Component class="javax.swing.JButton" name="ProductReportjButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Products"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="returnjButton6ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ProductReportjButtonActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="jPanel2">
+    <Container class="javax.swing.JPanel" name="basePanel">
 
-      <Layout>
-        <DimensionLayout dim="0">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-          </Group>
-        </DimensionLayout>
-        <DimensionLayout dim="1">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-          </Group>
-        </DimensionLayout>
-      </Layout>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanel3">
       <Properties>
@@ -328,7 +347,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="0" pref="547" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="555" max="32767" attributes="0"/>
                   <Component id="jPanel4" min="-2" pref="163" max="-2" attributes="0"/>
               </Group>
           </Group>

@@ -5,6 +5,16 @@
  */
 package frames;
 
+import javax.swing.JPanel;
+import panels.MyProductsPanel;
+import panels.ProductsReportPanel;
+import panels.PurchasePanel;
+import panels.PurchaseReportPanel;
+import panels.SellPanel;
+import panels.SellReportPanel;
+import panels.SellReturnPanel;
+import panels.TransactionPanel;
+
 /**
  *
  * @author monieuzzaman
@@ -30,18 +40,20 @@ public class HomeFrame extends javax.swing.JFrame {
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
+        jMenuItem12 = new javax.swing.JMenuItem();
+        jMenuItem13 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         selljButton = new javax.swing.JButton();
         returnjButton = new javax.swing.JButton();
-        returnjButton1 = new javax.swing.JButton();
-        returnjButton2 = new javax.swing.JButton();
-        returnjButton3 = new javax.swing.JButton();
+        myProductsjButton = new javax.swing.JButton();
+        purchasejButton = new javax.swing.JButton();
+        transactionjButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        returnjButton4 = new javax.swing.JButton();
-        returnjButton5 = new javax.swing.JButton();
-        returnjButton6 = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        sellReportjButton = new javax.swing.JButton();
+        purchaseReportjButton = new javax.swing.JButton();
+        ProductReportjButton = new javax.swing.JButton();
+        basePanel = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -49,6 +61,7 @@ public class HomeFrame extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem14 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -70,6 +83,10 @@ public class HomeFrame extends javax.swing.JFrame {
         jMenu4.setText("Edit");
         jMenuBar2.add(jMenu4);
 
+        jMenuItem12.setText("jMenuItem12");
+
+        jMenuItem13.setText("jMenuItem13");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(92, 54, 140));
@@ -81,38 +98,63 @@ public class HomeFrame extends javax.swing.JFrame {
         jLabel1.setText("Selles");
 
         selljButton.setText("Sell");
+        selljButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selljButtonActionPerformed(evt);
+            }
+        });
 
         returnjButton.setText("Sell Return");
+        returnjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                returnjButtonActionPerformed(evt);
+            }
+        });
 
-        returnjButton1.setText("My Products");
+        myProductsjButton.setText("My Products");
+        myProductsjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                myProductsjButtonActionPerformed(evt);
+            }
+        });
 
-        returnjButton2.setText("Purchase");
+        purchasejButton.setText("Purchase");
+        purchasejButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                purchasejButtonActionPerformed(evt);
+            }
+        });
 
-        returnjButton3.setText("Transaction");
+        transactionjButton.setText("Transaction");
+        transactionjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                transactionjButtonActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(254, 254, 254));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Reports");
 
-        returnjButton4.setText("Sell Report");
-        returnjButton4.addActionListener(new java.awt.event.ActionListener() {
+        sellReportjButton.setText("Sell Report");
+        sellReportjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                returnjButton4ActionPerformed(evt);
+                sellReportjButtonActionPerformed(evt);
             }
         });
 
-        returnjButton5.setText("Purchase");
-        returnjButton5.addActionListener(new java.awt.event.ActionListener() {
+        purchaseReportjButton.setText("Purchase");
+        purchaseReportjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                returnjButton5ActionPerformed(evt);
+                purchaseReportjButtonActionPerformed(evt);
             }
         });
 
-        returnjButton6.setText("Products");
-        returnjButton6.addActionListener(new java.awt.event.ActionListener() {
+        ProductReportjButton.setText("Products");
+        ProductReportjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                returnjButton6ActionPerformed(evt);
+                ProductReportjButtonActionPerformed(evt);
             }
         });
 
@@ -122,14 +164,14 @@ public class HomeFrame extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(selljButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(returnjButton, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-            .addComponent(returnjButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-            .addComponent(returnjButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-            .addComponent(returnjButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+            .addComponent(returnjButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(myProductsjButton, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+            .addComponent(purchasejButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(transactionjButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(returnjButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-            .addComponent(returnjButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-            .addComponent(returnjButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+            .addComponent(sellReportjButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(purchaseReportjButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(ProductReportjButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,32 +183,23 @@ public class HomeFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(returnjButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(returnjButton1)
+                .addComponent(myProductsjButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(returnjButton2)
+                .addComponent(purchasejButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(returnjButton3)
+                .addComponent(transactionjButton)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(returnjButton4)
+                .addComponent(sellReportjButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(returnjButton5)
+                .addComponent(purchaseReportjButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(returnjButton6)
+                .addComponent(ProductReportjButton)
                 .addContainerGap(140, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        basePanel.setLayout(new java.awt.CardLayout());
 
         jPanel3.setBackground(new java.awt.Color(222, 246, 200));
 
@@ -194,7 +227,7 @@ public class HomeFrame extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 547, Short.MAX_VALUE)
+                .addGap(0, 555, Short.MAX_VALUE)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -216,6 +249,9 @@ public class HomeFrame extends javax.swing.JFrame {
 
         jMenuItem2.setText("Change Password");
         jMenu1.add(jMenuItem2);
+
+        jMenuItem14.setText("Logout");
+        jMenu1.add(jMenuItem14);
 
         jMenuBar1.add(jMenu1);
 
@@ -280,14 +316,14 @@ public class HomeFrame extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(basePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(basePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -296,17 +332,17 @@ public class HomeFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void returnjButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnjButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_returnjButton4ActionPerformed
+    private void sellReportjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sellReportjButtonActionPerformed
+        switchPanel(new SellReportPanel());
+    }//GEN-LAST:event_sellReportjButtonActionPerformed
 
-    private void returnjButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnjButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_returnjButton5ActionPerformed
+    private void purchaseReportjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_purchaseReportjButtonActionPerformed
+        switchPanel(new PurchaseReportPanel());
+    }//GEN-LAST:event_purchaseReportjButtonActionPerformed
 
-    private void returnjButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnjButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_returnjButton6ActionPerformed
+    private void ProductReportjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProductReportjButtonActionPerformed
+        switchPanel(new ProductsReportPanel());
+    }//GEN-LAST:event_ProductReportjButtonActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
@@ -316,8 +352,30 @@ public class HomeFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
+    private void selljButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selljButtonActionPerformed
+        switchPanel(new SellPanel());
+    }//GEN-LAST:event_selljButtonActionPerformed
+
+    private void returnjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnjButtonActionPerformed
+        switchPanel(new SellReturnPanel());
+    }//GEN-LAST:event_returnjButtonActionPerformed
+
+    private void myProductsjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myProductsjButtonActionPerformed
+        switchPanel(new MyProductsPanel());
+    }//GEN-LAST:event_myProductsjButtonActionPerformed
+
+    private void purchasejButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_purchasejButtonActionPerformed
+        switchPanel(new PurchasePanel());
+    }//GEN-LAST:event_purchasejButtonActionPerformed
+
+    private void transactionjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transactionjButtonActionPerformed
+        switchPanel(new TransactionPanel());
+    }//GEN-LAST:event_transactionjButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ProductReportjButton;
+    private javax.swing.JPanel basePanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -334,6 +392,9 @@ public class HomeFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -343,16 +404,24 @@ public class HomeFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JButton myProductsjButton;
+    private javax.swing.JButton purchaseReportjButton;
+    private javax.swing.JButton purchasejButton;
     private javax.swing.JButton returnjButton;
-    private javax.swing.JButton returnjButton1;
-    private javax.swing.JButton returnjButton2;
-    private javax.swing.JButton returnjButton3;
-    private javax.swing.JButton returnjButton4;
-    private javax.swing.JButton returnjButton5;
-    private javax.swing.JButton returnjButton6;
+    private javax.swing.JButton sellReportjButton;
     private javax.swing.JButton selljButton;
+    private javax.swing.JButton transactionjButton;
     // End of variables declaration//GEN-END:variables
+
+    private void switchPanel(JPanel jPanel) {
+        basePanel.removeAll();
+        basePanel.repaint();
+        basePanel.revalidate();
+
+        basePanel.add(jPanel);
+        basePanel.repaint();
+        basePanel.revalidate();
+    }
 }

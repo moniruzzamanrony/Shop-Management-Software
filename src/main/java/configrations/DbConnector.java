@@ -45,7 +45,8 @@ public class DbConnector {
 
     private void createTable() {
         List<String> createTableQueries = List.of(
-                "CREATE TABLE IF NOT EXISTS `user` (`id` int(11) NOT NULL auto_increment, `name` varchar(250)  NOT NULL default 'admin',`phone_no` varchar(250)  NOT NULL default 'admin',`email` varchar(250)  default '',`shop_name` varchar(250)  default '',`shop_address` varchar(250)  default '',`logo_url` varchar(250)  default '',`role` varchar(250)  default '',`password` varchar(250) NOT NULL  default 'admin',`is_active` bit NOT NULL  default 1,PRIMARY KEY  (`id`));"
+                "CREATE TABLE IF NOT EXISTS `user` (`id` int(11) NOT NULL auto_increment, `name` varchar(250)  NOT NULL default 'admin',`phone_no` varchar(250)  NOT NULL default 'admin',`email` varchar(250)  default '',`shop_name` varchar(250)  default '',`shop_address` varchar(250)  default '',`logo_url` varchar(250)  default '',`role` varchar(250)  default '',`password` varchar(250) NOT NULL  default 'admin',`is_active` bit NOT NULL  default 1,PRIMARY KEY  (`id`));",
+                 "CREATE TABLE IF NOT EXISTS `suppliers` (`id` int(11) NOT NULL, `name` varchar(250)  NOT NULL default 'admin',`phone_no` varchar(250)  NOT NULL default 'admin',`email` varchar(250)  default '',`company_name` varchar(250)  default '',`bank_name` varchar(250)  default '',`bank__ac_no` varchar(250)  default '',`address` varchar(250)  default '',`is_active` bit NOT NULL  default 1);"
         );
 
         createTableQueries.forEach(res -> {
