@@ -19,18 +19,18 @@ import validators.AppValidator;
  *
  * @author monieuzzaman
  */
-public class AddNewSupplierFormFrame extends javax.swing.JFrame {
-
+public class AddNewProductForm extends javax.swing.JFrame {
+    
     private boolean isDone = false;
     private DbConnector connector = new DbConnector();
 
     /**
      * Creates new form FormFrame
      */
-    public AddNewSupplierFormFrame() {
+    public AddNewProductForm() {
         initComponents();
-        this.setTitle("Add New Supplier");
-
+        this.setTitle("Add New Product");
+        
     }
 
     /**
@@ -44,41 +44,24 @@ public class AddNewSupplierFormFrame extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        name = new javax.swing.JTextField();
+        productCetagoryEditText = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        companyName = new javax.swing.JTextField();
-        bankName = new javax.swing.JTextField();
+        productNameEditText = new javax.swing.JTextField();
+        productBrandEditText = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        bankAcName = new javax.swing.JTextField();
-        mobileName = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        address = new javax.swing.JTextField();
         save = new javax.swing.JButton();
         resetBut = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
-        emailEditText = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        jLabel2.setText("Name: ");
+        jLabel2.setText("Product Cetagory: ");
 
         jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        jLabel3.setText("Company Name: ");
+        jLabel3.setText("Product Name: ");
 
         jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        jLabel4.setText("Bank Name: ");
-
-        jLabel5.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        jLabel5.setText("Bank AC No: ");
-
-        jLabel6.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        jLabel6.setText("Mobile No: ");
-
-        jLabel7.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        jLabel7.setText("Address: ");
+        jLabel4.setText("Brand Name:");
 
         save.setBackground(new java.awt.Color(139, 185, 90));
         save.setText("Save");
@@ -95,9 +78,6 @@ public class AddNewSupplierFormFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel8.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        jLabel8.setText("Email: ");
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -107,36 +87,22 @@ public class AddNewSupplierFormFrame extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel8))
-                        .addGap(35, 35, 35)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(bankAcName)
-                            .addComponent(mobileName)
-                            .addComponent(emailEditText)))
+                            .addComponent(productBrandEditText)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(productCetagoryEditText)
+                                    .addComponent(productNameEditText, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(resetBut, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(62, 62, 62)
-                        .addComponent(address))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(40, 40, 40)
-                        .addComponent(bankName))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(name)
-                            .addComponent(companyName, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(resetBut, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -145,35 +111,19 @@ public class AddNewSupplierFormFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(productCetagoryEditText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(companyName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(productNameEditText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(bankName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(productBrandEditText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(bankAcName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(mobileName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(emailEditText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(save)
-                    .addComponent(resetBut))
+                    .addComponent(resetBut)
+                    .addComponent(save))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -195,7 +145,7 @@ public class AddNewSupplierFormFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
-        if (AppValidator.isString(name.getText().toString())) {
+        if (AppValidator.isString(productCetagoryEditText.getText().toString())) {
             save();
         }
     }//GEN-LAST:event_saveActionPerformed
@@ -206,59 +156,47 @@ public class AddNewSupplierFormFrame extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField address;
-    private javax.swing.JTextField bankAcName;
-    private javax.swing.JTextField bankName;
-    private javax.swing.JTextField companyName;
-    private javax.swing.JTextField emailEditText;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField mobileName;
-    private javax.swing.JTextField name;
+    private javax.swing.JTextField productBrandEditText;
+    private javax.swing.JTextField productCetagoryEditText;
+    private javax.swing.JTextField productNameEditText;
     private javax.swing.JButton resetBut;
     private javax.swing.JButton save;
     // End of variables declaration//GEN-END:variables
 
     private void save() {
-
-        String query = "INSERT INTO `suppliers` (`id`, `name`, `phone_no`, `email`, `company_name`, `bank_name`, `bank__ac_no`, `address`, `is_active`) "
-                + "VALUES ('" + ApplicationUtils.getRandomInt() + "', '" + name.getText().toString() + "', '" + mobileName.getText().toString() + "', '" + emailEditText.getText().toString() + "', '" + companyName.getText().toString() + "', '" + bankName.getText().toString() + "', '" + bankAcName.getText().toString() + "', '" + address.getText().toString() + "', b'1');";
+        
+        String query = "INSERT INTO `products` (`id`, `name`, `cetagory`, `brand`) "
+                + "VALUES ('" + ApplicationUtils.getRandomInt() + "', '" + productNameEditText.getText().toString() + "', '" + productCetagoryEditText.getText().toString() + "', '" + productBrandEditText.getText().toString() + "');";
         connector.updateOrDeleteQueryExecutor(query, new MySqlResponse() {
             @Override
             public void onGetResponse(ResultSet resultSet) {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
-
+            
             @Override
             public void onUpdateAndDeleteResponse(int result) {
                 isDone = true;
                 AlertUtils.success("Add Successfully!");
                 reset();
             }
-
+            
             @Override
             public void onError(String error) {
                 AlertUtils.error("Try Again!");
             }
         });
         if (isDone) {
-
+            
         }
     }
-
+    
     private void reset() {
-        name.setText("");
-        mobileName.setText("");
-        emailEditText.setText("");
-        companyName.setText("");
-        bankAcName.setText("");
-        bankName.setText("");
-
+        productNameEditText.setText("");
+        productCetagoryEditText.setText("");
+        productBrandEditText.setText("");
     }
 }

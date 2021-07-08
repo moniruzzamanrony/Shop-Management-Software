@@ -279,8 +279,7 @@ public class LoginFrame extends javax.swing.JFrame {
                             String id = resultSet.getString("name");
                             isLogged= true;
                             new HomeFrame().setVisible(true);
-                            // print the results
-                            System.out.format("%s\n", id);
+                     
                         }
                     }
 
