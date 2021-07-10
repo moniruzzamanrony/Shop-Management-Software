@@ -175,6 +175,11 @@ public class PurchasePanel extends javax.swing.JPanel {
                 }
             }
         });
+
+        //Disable Default
+        grandTotalEditText.setEditable(false);
+        dueTextField.setEditable(false);
+        disableDefault(false);
     }
 
     /**
@@ -207,9 +212,9 @@ public class PurchasePanel extends javax.swing.JPanel {
         dueTextField = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        productAddedCompleteBut = new javax.swing.JButton();
+        addNewBut = new javax.swing.JButton();
+        saveAndNewBut = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         productsjTable = new javax.swing.JTable();
@@ -337,11 +342,21 @@ public class PurchasePanel extends javax.swing.JPanel {
         jLabel20.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel20.setText("Due");
 
-        jButton3.setText("Product add completed");
+        productAddedCompleteBut.setText("Product add completed");
+        productAddedCompleteBut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                productAddedCompleteButActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("New");
+        addNewBut.setText("New");
 
-        jButton5.setText("Print");
+        saveAndNewBut.setText("Save & New");
+        saveAndNewBut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveAndNewButActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -357,7 +372,7 @@ public class PurchasePanel extends javax.swing.JPanel {
             .addComponent(paidTextField)
             .addComponent(dueTextField)
             .addComponent(jSeparator4)
-            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(productAddedCompleteBut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel14)
@@ -368,10 +383,8 @@ public class PurchasePanel extends javax.swing.JPanel {
                     .addComponent(jLabel19)
                     .addComponent(jLabel20))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(addNewBut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(saveAndNewBut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -410,12 +423,12 @@ public class PurchasePanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3)
+                .addComponent(productAddedCompleteBut)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(saveAndNewBut)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5))
-                .addGap(0, 34, Short.MAX_VALUE))
+                .addComponent(addNewBut)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -446,7 +459,7 @@ public class PurchasePanel extends javax.swing.JPanel {
                 .addGap(0, 0, 0))
         );
 
-        gridbody.setLayout(new java.awt.GridLayout());
+        gridbody.setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel5.setBackground(new java.awt.Color(245, 242, 228));
 
@@ -537,7 +550,7 @@ public class PurchasePanel extends javax.swing.JPanel {
 
         gridbody.add(jPanel7);
 
-        gridbody1.setLayout(new java.awt.GridLayout());
+        gridbody1.setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel8.setBackground(new java.awt.Color(238, 249, 232));
 
@@ -675,12 +688,12 @@ public class PurchasePanel extends javax.swing.JPanel {
                 .addComponent(addNewSupplierButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addNewProductBut)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         gridbody1.add(jPanel10);
 
-        gridbody2.setLayout(new java.awt.GridLayout());
+        gridbody2.setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel11.setBackground(new java.awt.Color(228, 247, 249));
 
@@ -835,7 +848,7 @@ public class PurchasePanel extends javax.swing.JPanel {
                     .addComponent(expiedDateEditText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addCardBut)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         gridbody2.add(jPanel13);
@@ -932,12 +945,22 @@ public class PurchasePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_discountTextFieldKeyReleased
 
     private void paidTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_paidTextFieldKeyReleased
-       dueTextField.setText(String.valueOf(Double.valueOf(grandTotalEditText.getText()) - Double.valueOf(paidTextField.getText())));
+        dueTextField.setText(String.valueOf(Double.valueOf(grandTotalEditText.getText()) - Double.valueOf(paidTextField.getText())));
     }//GEN-LAST:event_paidTextFieldKeyReleased
+
+    private void productAddedCompleteButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productAddedCompleteButActionPerformed
+        productAddedCompleteBut.setVisible(false);
+        disableDefault(true);
+    }//GEN-LAST:event_productAddedCompleteButActionPerformed
+
+    private void saveAndNewButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAndNewButActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_saveAndNewButActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addCardBut;
+    private javax.swing.JButton addNewBut;
     private javax.swing.JButton addNewProductBut;
     private javax.swing.JButton addNewSupplierButton;
     private javax.swing.ButtonGroup buttonGroup1;
@@ -948,9 +971,6 @@ public class PurchasePanel extends javax.swing.JPanel {
     private javax.swing.JPanel gridbody;
     private javax.swing.JPanel gridbody1;
     private javax.swing.JPanel gridbody2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -998,8 +1018,10 @@ public class PurchasePanel extends javax.swing.JPanel {
     private javax.swing.JTextField proIdEditText;
     private javax.swing.JTextField proQuantityEditText;
     private javax.swing.JTextField proRateEditText;
+    private javax.swing.JButton productAddedCompleteBut;
     private javax.swing.JComboBox<String> productNameComboBox;
     private javax.swing.JTable productsjTable;
+    private javax.swing.JButton saveAndNewBut;
     private javax.swing.JTextField subTotalEditText;
     private javax.swing.JTextField supplierIDEditText;
     private javax.swing.JComboBox<String> supplierIsNameComboBox;
@@ -1053,5 +1075,14 @@ public class PurchasePanel extends javax.swing.JPanel {
         }
         subTotalEditText.setText(String.valueOf(total));
         grandTotalEditText.setText(subTotalEditText.getText());
+    }
+
+    private void disableDefault(boolean isDisable) {
+        vatEditText.setEditable(isDisable);
+        transportTextField.setEditable(isDisable);
+        paidTextField.setEditable(isDisable);
+        addNewBut.setVisible(isDisable);
+        addCardBut.setVisible(!isDisable);
+        saveAndNewBut.setVisible(isDisable);
     }
 }
