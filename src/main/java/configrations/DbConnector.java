@@ -30,7 +30,7 @@ public class DbConnector {
         createTable();
     }
 
-    public Connection getConnection() {
+    private Connection getConnection() {
         try {
 
             Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);

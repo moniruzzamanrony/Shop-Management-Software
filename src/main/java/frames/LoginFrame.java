@@ -7,10 +7,13 @@ package frames;
 
 import configrations.DbConnector;
 import configrations.MySqlResponse;
+import dto.LoggedUserInfo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import logger.LoggerHelper;
+import services.AuthServiece;
 import utils.AlertUtils;
 
 /**
@@ -19,11 +22,13 @@ import utils.AlertUtils;
  */
 public class LoginFrame extends javax.swing.JFrame {
     private boolean isLogged = false;
+    private AuthServiece authServiece;
     /**
      * Creates new form LoginFrame
      */
     public LoginFrame() {
         initComponents();
+        authServiece= new AuthServiece();
     }
 
     /**
@@ -265,44 +270,8 @@ public class LoginFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void login() {
-       
-        DbConnector connector = new DbConnector();
-        connector.getQueryExecutor("SELECT * FROM `user` WHERE `phone_no`='" + usernameTextField.getText().toString() + "' AND `password`='" + passwordTextField.getText().toString() + "'", new MySqlResponse() {
-            @Override
-            public void onGetResponse(ResultSet resultSet) {
-                
-                try {
-                    if (!resultSet.isBeforeFirst()) {
-                        AlertUtils.warn("Wrong phone no or password.");
-                    } else {
-                        while (resultSet.next()) {
-                            String id = resultSet.getString("name");
-                            isLogged= true;
-                            new HomeFrame().setVisible(true);
-                     
-                        }
-                    }
-
-                } catch (SQLException ex) {
-                    throw new UnsupportedOperationException(ex);
-                }
-            }
-
-            @Override
-            public void onUpdateAndDeleteResponse(int result) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-
-            @Override
-            public void onError(String error) {
-                throw new UnsupportedOperationException(error); //To change body of generated methods, choose Tools | Templates.
-            }
-        });
-      
-        if(isLogged)
-        {
-          this.setVisible(false);
-        }
+      LoggedUserInfo loggedUserInfo= authServiece.login(usernameTextField.getText().toString(), passwordTextField.getText().toString());
+        LoggerHelper.error(loggedUserInfo.getEmail());
     }
 
     private void exit() {
