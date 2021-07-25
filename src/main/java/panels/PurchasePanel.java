@@ -5,8 +5,10 @@
  */
 package panels;
 
-
+import Enums.InvoiceType;
 import dto.CardProductDTO;
+import dto.InvoiceDTO;
+import dto.InvoiceDetailsDTO;
 import dto.LoggedUserInfo;
 import frames.AddNewProductForm;
 import frames.AddNewSupplierFormFrame;
@@ -22,7 +24,11 @@ import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import dto.ProductCetagoryDTO;
 import dto.SupplierDTO;
+import java.util.Collections;
+import java.util.stream.Collectors;
 import services.ProductCetagotyService;
+import services.InvoiceService;
+import services.ProductPurchaseService;
 import services.SupplierService;
 import utils.ApplicationUtils;
 
@@ -31,10 +37,13 @@ import utils.ApplicationUtils;
  * @author monieuzzaman
  */
 public class PurchasePanel extends javax.swing.JPanel {
-
+    
     private List<CardProductDTO> cardProductDTOList = new ArrayList<>();
     private SupplierService supplierService;
     private ProductCetagotyService cetagotyService;
+    private ProductPurchaseService productPurchaseService;
+    
+    private final int INVOICE_NO = ApplicationUtils.getRandomInvoiceNo();
 
     /**
      * Creates new form PurchasePanel
@@ -44,6 +53,7 @@ public class PurchasePanel extends javax.swing.JPanel {
         // Object Create
         supplierService = new SupplierService();
         cetagotyService = new ProductCetagotyService();
+        productPurchaseService = new ProductPurchaseService();
 
         // Auto Completed
         AutoCompleteDecorator.decorate(supplierIsNameComboBox);
@@ -54,39 +64,39 @@ public class PurchasePanel extends javax.swing.JPanel {
         supplierIsNameComboBox.addItem("Select");
         supplierService.getSuppliers().stream().forEach(supplier
                 -> supplierIsNameComboBox.addItem(supplier.getName()));
-
+        
         supplierIsNameComboBox.addItemListener(new ItemListener() {
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     String name = supplierIsNameComboBox.getSelectedItem().toString();
-
+                    
                     SupplierDTO supplierDTO = supplierService.getByName(name);
-
+                    
                     supplierPhoneNoEditText.setText(supplierDTO.getPhoneNo());
                     supplierIDEditText.setText(String.valueOf(supplierDTO.getId()));
-
+                    
                 }
-
+                
             }
         });
 
         //Add Product Name in Combobox
         productNameComboBox.removeAllItems();
         productNameComboBox.addItem("Select");
-        cetagotyService.getAll().forEach(cetagory-> productNameComboBox.addItem(cetagory.getName()));
-
+        cetagotyService.getAll().forEach(cetagory -> productNameComboBox.addItem(cetagory.getName()));
+        
         productNameComboBox.addItemListener(new ItemListener() {
-
+            
             public void itemStateChanged(ItemEvent e) {
-
+                
                 System.err.println(productNameComboBox.getSelectedItem().toString());
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     String name = productNameComboBox.getSelectedItem().toString();
-                     ProductCetagoryDTO cetagoryDTO = cetagotyService.getByName(name);
-                 
+                    ProductCetagoryDTO cetagoryDTO = cetagotyService.getByName(name);
+                    
                     proCatEditText.setText(cetagoryDTO.getCetagoty());
                     proIdEditText.setText(String.valueOf(cetagoryDTO.getId()));
-                   
+                    
                 }
             }
         });
@@ -96,7 +106,7 @@ public class PurchasePanel extends javax.swing.JPanel {
         grandTotalEditText.setEditable(false);
         dueTextField.setEditable(false);
         disableDefault(false);
-        invoiceNoEditText.setText(String.valueOf(ApplicationUtils.getRandomInvoiceNo()));
+        invoiceNoEditText.setText(String.valueOf(INVOICE_NO));
         employeeNameEditText.setEditable(false);
         employeeNameEditText.setText(LoggedUserInfo.getName());
     }
@@ -146,7 +156,7 @@ public class PurchasePanel extends javax.swing.JPanel {
         employeeNameEditText = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
+        issueDateEditText = new javax.swing.JTextField();
         gridbody1 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -456,7 +466,7 @@ public class PurchasePanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel22)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(issueDateEditText, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(83, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
@@ -464,7 +474,7 @@ public class PurchasePanel extends javax.swing.JPanel {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(issueDateEditText, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -852,19 +862,19 @@ public class PurchasePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_supplierPhoneNoEditTextActionPerformed
 
     private void addCardButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCardButActionPerformed
-
+        
         addDataInTable(new CardProductDTO(proIdEditText.getText(), proCatEditText.getText(),
                 productNameComboBox.getSelectedItem().toString(), proQuantityEditText.getText(),
                 proRateEditText.getText(), Double.valueOf(proRateEditText.getText()) * Double.valueOf(proQuantityEditText.getText()),
                 expiedDateEditText.getText(), productLocationEditText.getText()));
-
+        
         reset();
         sideBarTotal();
     }//GEN-LAST:event_addCardButActionPerformed
 
     private void vatEditTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_vatEditTextKeyReleased
         double cal = (Double.valueOf(subTotalEditText.getText()) * Integer.valueOf(vatEditText.getText())) / 100;
-
+        
         grandTotalEditText.setText(String.valueOf(Double.valueOf(subTotalEditText.getText()) + cal));
         System.err.println(vatEditText.getText());
     }//GEN-LAST:event_vatEditTextKeyReleased
@@ -875,9 +885,9 @@ public class PurchasePanel extends javax.swing.JPanel {
 
     private void discountTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_discountTextFieldKeyReleased
         double cal = (Double.valueOf(subTotalEditText.getText()) * Double.valueOf(discountTextField.getText())) / 100;
-
+        
         grandTotalEditText.setText(String.valueOf(Double.valueOf(subTotalEditText.getText()) - cal));
-    
+        
     }//GEN-LAST:event_discountTextFieldKeyReleased
 
     private void paidTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_paidTextFieldKeyReleased
@@ -890,7 +900,31 @@ public class PurchasePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_productAddedCompleteButActionPerformed
 
     private void saveAndNewButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAndNewButActionPerformed
-        // TODO add your handling code here:
+        InvoiceDTO invoiceDTO = new InvoiceDTO();
+        invoiceDTO.setInvoiceId(INVOICE_NO);
+        invoiceDTO.setSupplierId(supplierIDEditText.getText());
+        invoiceDTO.setSubTotal(Double.valueOf(subTotalEditText.getText()));
+        invoiceDTO.setVet(Integer.valueOf(vatEditText.getText()));
+        invoiceDTO.setTransportCost(Double.valueOf(transportTextField.getText()));
+        invoiceDTO.setDiscount(Integer.valueOf(discountTextField.getText()));
+        invoiceDTO.setTotal(Double.valueOf(grandTotalEditText.getText()));
+        invoiceDTO.setPaid(Double.valueOf(paidTextField.getText()));
+        invoiceDTO.setDue(Double.valueOf(dueTextField.getText()));
+        invoiceDTO.setCreateBy(employeeNameEditText.getText());
+        invoiceDTO.setCreateDate(ApplicationUtils.getCurrentDateAndTime());
+        invoiceDTO.setIssueDateAndTime(issueDateEditText.getText());
+        invoiceDTO.setInvoiceType(InvoiceType.PURCHASE);
+        
+        List<InvoiceDetailsDTO> invoiceDetailsDTOs = cardProductDTOList.stream().map(card
+                -> new InvoiceDetailsDTO(ApplicationUtils.getRandomInt(), Double.valueOf(card.getPrice()),
+                        Integer.valueOf(proIdEditText.getText()),
+                        Integer.valueOf(card.getQty()), Double.valueOf(card.getTotalPrice()),
+                        card.getExpDate(), card.getProductLocation(),
+                        Integer.valueOf(discountTextField.getText()), INVOICE_NO)
+        ).collect(Collectors.toList());
+        invoiceDTO.setDetailsDTOs(invoiceDetailsDTOs);
+        
+        saveInvoice(invoiceDTO);
     }//GEN-LAST:event_saveAndNewButActionPerformed
 
     private void productLocationEditTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productLocationEditTextActionPerformed
@@ -913,6 +947,7 @@ public class PurchasePanel extends javax.swing.JPanel {
     private javax.swing.JPanel gridbody1;
     private javax.swing.JPanel gridbody2;
     private javax.swing.JTextField invoiceNoEditText;
+    private javax.swing.JTextField issueDateEditText;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -953,7 +988,6 @@ public class PurchasePanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JTextField jTextField12;
     private javax.swing.JTextField paidTextField;
     private javax.swing.JTextField proCatEditText;
     private javax.swing.JTextField proIdEditText;
@@ -973,11 +1007,11 @@ public class PurchasePanel extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void addDataInTable(CardProductDTO cardProduct) {
-
+        
         cardProductDTOList.add(cardProduct);
-
+        
         DefaultTableModel mobileRechargeDetailsInMobileRechargePanel = new DefaultTableModel(new String[]{"Id", "Cetagory", "Product Name", "Price", "Qty", "Total Price", "Exp Date", "Product Location"}, 0);
-
+        
         for (CardProductDTO cardProductDTO : cardProductDTOList) {
             mobileRechargeDetailsInMobileRechargePanel.addRow(new Object[]{
                 cardProductDTO.getId(),
@@ -990,37 +1024,37 @@ public class PurchasePanel extends javax.swing.JPanel {
                 cardProductDTO.getProductLocation()
             });
         }
-
+        
         productsjTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
         productsjTable.getTableHeader().setOpaque(false);
 
         //For jTable contant in center
         DefaultTableCellRenderer stringRenderer = (DefaultTableCellRenderer) productsjTable.getDefaultRenderer(String.class);
         stringRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-
+        
         productsjTable.setEnabled(false);
         productsjTable.setRowHeight(35);
         productsjTable.setModel(mobileRechargeDetailsInMobileRechargePanel);
     }
-
+    
     private void reset() {
         proQuantityEditText.setText("");
         proRateEditText.setText("");
         expiedDateEditText.setText("");
         productLocationEditText.setText("");
     }
-
+    
     private void sideBarTotal() {
-
+        
         double total = 0.0;
         for (CardProductDTO cardProductDTO : cardProductDTOList) {
             total = total + cardProductDTO.getTotalPrice();
-
+            
         }
         subTotalEditText.setText(String.valueOf(total));
         grandTotalEditText.setText(subTotalEditText.getText());
     }
-
+    
     private void disableDefault(boolean isDisable) {
         vatEditText.setEditable(isDisable);
         transportTextField.setEditable(isDisable);
@@ -1028,5 +1062,9 @@ public class PurchasePanel extends javax.swing.JPanel {
         addNewBut.setVisible(isDisable);
         addCardBut.setVisible(!isDisable);
         saveAndNewBut.setVisible(isDisable);
+    }
+    
+    private void saveInvoice(InvoiceDTO invoiceDTO) {
+        productPurchaseService.saveInvoice(invoiceDTO);
     }
 }

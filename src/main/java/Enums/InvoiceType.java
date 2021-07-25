@@ -3,19 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package services;
-
-import dto.InvoiceDTO;
+package Enums;
 
 /**
  *
  * @author monieuzzaman
  */
-public class ProductPurchaseService implements InvoiceService{
-
-    @Override
-    public void saveInvoice(InvoiceDTO invoiceDTO) {
-      
-    }
-    
+public enum InvoiceType {
+    PURCHASE,
+    SELL
 }

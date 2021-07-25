@@ -9,13 +9,8 @@ import dto.InvoiceDTO;
 
 /**
  *
- * @author monieuzzaman
+ * @author moniruzzaman.rony
  */
-public class ProductPurchaseService implements InvoiceService{
-
-    @Override
-    public void saveInvoice(InvoiceDTO invoiceDTO) {
-      
-    }
-    
+public interface InvoiceService {
+   void saveInvoice(InvoiceDTO invoiceDTO);
 }
