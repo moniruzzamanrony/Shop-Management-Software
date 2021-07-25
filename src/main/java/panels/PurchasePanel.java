@@ -5,29 +5,26 @@
  */
 package panels;
 
-import configrations.DbConnector;
-import configrations.MySqlResponse;
+
 import dto.CardProductDTO;
+import dto.LoggedUserInfo;
 import frames.AddNewProductForm;
 import frames.AddNewSupplierFormFrame;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
-import validators.AppValidator;
+import dto.ProductCetagoryDTO;
+import dto.SupplierDTO;
+import services.ProductCetagotyService;
+import services.SupplierService;
+import utils.ApplicationUtils;
 
 /**
  *
@@ -35,14 +32,18 @@ import validators.AppValidator;
  */
 public class PurchasePanel extends javax.swing.JPanel {
 
-    DbConnector connector = new DbConnector();
     private List<CardProductDTO> cardProductDTOList = new ArrayList<>();
+    private SupplierService supplierService;
+    private ProductCetagotyService cetagotyService;
 
     /**
      * Creates new form PurchasePanel
      */
     public PurchasePanel() {
         initComponents();
+        // Object Create
+        supplierService = new SupplierService();
+        cetagotyService = new ProductCetagotyService();
 
         // Auto Completed
         AutoCompleteDecorator.decorate(supplierIsNameComboBox);
@@ -50,94 +51,29 @@ public class PurchasePanel extends javax.swing.JPanel {
 
         //Add Supplier in combo
         supplierIsNameComboBox.removeAllItems();
-        String query = "SELECT * FROM `suppliers`;";
-        connector.getQueryExecutor(query, new MySqlResponse() {
-            @Override
-            public void onGetResponse(ResultSet resultSet) {
-                try {
-                    while (resultSet.next()) {
-
-                        supplierIsNameComboBox.addItem(resultSet.getString("name"));
-
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(AddNewSupplierFormFrame.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-
-            @Override
-            public void onUpdateAndDeleteResponse(int result) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-
-            @Override
-            public void onError(String error) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-        });
+        supplierIsNameComboBox.addItem("Select");
+        supplierService.getSuppliers().stream().forEach(supplier
+                -> supplierIsNameComboBox.addItem(supplier.getName()));
 
         supplierIsNameComboBox.addItemListener(new ItemListener() {
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     String name = supplierIsNameComboBox.getSelectedItem().toString();
-                    System.out.println(name);
-                    String query = "SELECT * FROM `suppliers` WHERE `name` ='" + name + "';";
-                    connector.getQueryExecutor(query, new MySqlResponse() {
-                        @Override
-                        public void onGetResponse(ResultSet resultSet) {
-                            try {
-                                while (resultSet.next()) {
-                                    supplierPhoneNoEditText.setText(resultSet.getString("phone_no"));
-                                    supplierIDEditText.setText(resultSet.getString("id"));
 
-                                }
-                            } catch (SQLException ex) {
-                                Logger.getLogger(AddNewSupplierFormFrame.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
+                    SupplierDTO supplierDTO = supplierService.getByName(name);
 
-                        @Override
-                        public void onUpdateAndDeleteResponse(int result) {
-                            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                        }
+                    supplierPhoneNoEditText.setText(supplierDTO.getPhoneNo());
+                    supplierIDEditText.setText(String.valueOf(supplierDTO.getId()));
 
-                        @Override
-                        public void onError(String error) {
-                            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                        }
-                    });
                 }
 
             }
         });
 
-        //Add Product in Combobox
+        //Add Product Name in Combobox
         productNameComboBox.removeAllItems();
-        String queryForProduct = "SELECT * FROM `products`;";
-        connector.getQueryExecutor(queryForProduct, new MySqlResponse() {
-            @Override
-            public void onGetResponse(ResultSet resultSet) {
-                try {
-                    while (resultSet.next()) {
-
-                        productNameComboBox.addItem(resultSet.getString("name"));
-
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(AddNewSupplierFormFrame.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-
-            @Override
-            public void onUpdateAndDeleteResponse(int result) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-
-            @Override
-            public void onError(String error) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-        });
+        productNameComboBox.addItem("Select");
+        cetagotyService.getAll().forEach(cetagory-> productNameComboBox.addItem(cetagory.getName()));
 
         productNameComboBox.addItemListener(new ItemListener() {
 
@@ -146,40 +82,23 @@ public class PurchasePanel extends javax.swing.JPanel {
                 System.err.println(productNameComboBox.getSelectedItem().toString());
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     String name = productNameComboBox.getSelectedItem().toString();
-                    System.out.println(name);
-                    String query = "SELECT * FROM `products` WHERE `name` ='" + name + "';";
-                    connector.getQueryExecutor(query, new MySqlResponse() {
-                        @Override
-                        public void onGetResponse(ResultSet resultSet) {
-                            try {
-                                while (resultSet.next()) {
-                                    proCatEditText.setText(resultSet.getString("cetagory"));
-                                    proIdEditText.setText(resultSet.getString("id"));
-
-                                }
-                            } catch (SQLException ex) {
-                                Logger.getLogger(AddNewSupplierFormFrame.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
-
-                        @Override
-                        public void onUpdateAndDeleteResponse(int result) {
-                            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                        }
-
-                        @Override
-                        public void onError(String error) {
-                            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                        }
-                    });
+                     ProductCetagoryDTO cetagoryDTO = cetagotyService.getByName(name);
+                 
+                    proCatEditText.setText(cetagoryDTO.getCetagoty());
+                    proIdEditText.setText(String.valueOf(cetagoryDTO.getId()));
+                   
                 }
             }
         });
 
         //Disable Default
+        subTotalEditText.setEditable(false);
         grandTotalEditText.setEditable(false);
         dueTextField.setEditable(false);
         disableDefault(false);
+        invoiceNoEditText.setText(String.valueOf(ApplicationUtils.getRandomInvoiceNo()));
+        employeeNameEditText.setEditable(false);
+        employeeNameEditText.setText(LoggedUserInfo.getName());
     }
 
     /**
@@ -221,10 +140,10 @@ public class PurchasePanel extends javax.swing.JPanel {
         gridbody = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        invoiceNoEditText = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        employeeNameEditText = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         jTextField12 = new javax.swing.JTextField();
@@ -260,6 +179,8 @@ public class PurchasePanel extends javax.swing.JPanel {
         proCatEditText = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         addCardBut = new javax.swing.JButton();
+        jLabel23 = new javax.swing.JLabel();
+        productLocationEditText = new javax.swing.JTextField();
 
         jPanel1.setBackground(new java.awt.Color(146, 190, 208));
 
@@ -325,7 +246,7 @@ public class PurchasePanel extends javax.swing.JPanel {
         grandTotalEditText.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         jLabel18.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        jLabel18.setText("Total");
+        jLabel18.setText("Payable");
 
         paidTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         paidTextField.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -474,7 +395,7 @@ public class PurchasePanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(invoiceNoEditText, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(34, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -485,7 +406,7 @@ public class PurchasePanel extends javax.swing.JPanel {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(4, 4, 4)
                         .addComponent(jLabel2))
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(invoiceNoEditText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -504,7 +425,7 @@ public class PurchasePanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addGap(16, 16, 16)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(employeeNameEditText, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(27, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
@@ -516,7 +437,7 @@ public class PurchasePanel extends javax.swing.JPanel {
                         .addComponent(jLabel3))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(employeeNameEditText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
@@ -791,7 +712,7 @@ public class PurchasePanel extends javax.swing.JPanel {
                         .addGap(4, 4, 4)
                         .addComponent(jLabel13))
                     .addComponent(proRateEditText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         gridbody2.add(jPanel12);
@@ -819,6 +740,16 @@ public class PurchasePanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel23.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel23.setText("Product Location:");
+
+        productLocationEditText.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        productLocationEditText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                productLocationEditTextActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
@@ -827,12 +758,14 @@ public class PurchasePanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel11)
-                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel23))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(addCardBut, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(proCatEditText, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(expiedDateEditText, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(expiedDateEditText, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(productLocationEditText, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(106, 106, 106))
         );
         jPanel13Layout.setVerticalGroup(
@@ -846,6 +779,10 @@ public class PurchasePanel extends javax.swing.JPanel {
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
                     .addComponent(expiedDateEditText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel23)
+                    .addComponent(productLocationEditText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addCardBut)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -879,8 +816,8 @@ public class PurchasePanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(gridbody1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(gridbody2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(gridbody2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
@@ -915,15 +852,14 @@ public class PurchasePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_supplierPhoneNoEditTextActionPerformed
 
     private void addCardButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCardButActionPerformed
-        if (AppValidator.isString(proQuantityEditText.getText())) {
-            addDataInTable(new CardProductDTO(proIdEditText.getText(), proCatEditText.getText(),
-                    productNameComboBox.getSelectedItem().toString(), proQuantityEditText.getText(),
-                    proRateEditText.getText(), Double.valueOf(proRateEditText.getText()) * Double.valueOf(proQuantityEditText.getText()),
-                    expiedDateEditText.getText()));
 
-            reset();
-            sideBarTotal();
-        }
+        addDataInTable(new CardProductDTO(proIdEditText.getText(), proCatEditText.getText(),
+                productNameComboBox.getSelectedItem().toString(), proQuantityEditText.getText(),
+                proRateEditText.getText(), Double.valueOf(proRateEditText.getText()) * Double.valueOf(proQuantityEditText.getText()),
+                expiedDateEditText.getText(), productLocationEditText.getText()));
+
+        reset();
+        sideBarTotal();
     }//GEN-LAST:event_addCardButActionPerformed
 
     private void vatEditTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_vatEditTextKeyReleased
@@ -938,10 +874,10 @@ public class PurchasePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_transportTextFieldKeyReleased
 
     private void discountTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_discountTextFieldKeyReleased
-        double cal = (Double.valueOf(grandTotalEditText.getText()) * Integer.valueOf(discountTextField.getText())) / 100;
+        double cal = (Double.valueOf(subTotalEditText.getText()) * Double.valueOf(discountTextField.getText())) / 100;
 
-        grandTotalEditText.setText(String.valueOf(Double.valueOf(grandTotalEditText.getText()) - cal));
-        System.err.println(vatEditText.getText());
+        grandTotalEditText.setText(String.valueOf(Double.valueOf(subTotalEditText.getText()) - cal));
+    
     }//GEN-LAST:event_discountTextFieldKeyReleased
 
     private void paidTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_paidTextFieldKeyReleased
@@ -957,6 +893,10 @@ public class PurchasePanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_saveAndNewButActionPerformed
 
+    private void productLocationEditTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productLocationEditTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_productLocationEditTextActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addCardBut;
@@ -966,11 +906,13 @@ public class PurchasePanel extends javax.swing.JPanel {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField discountTextField;
     private javax.swing.JTextField dueTextField;
+    private javax.swing.JTextField employeeNameEditText;
     private javax.swing.JTextField expiedDateEditText;
     private javax.swing.JTextField grandTotalEditText;
     private javax.swing.JPanel gridbody;
     private javax.swing.JPanel gridbody1;
     private javax.swing.JPanel gridbody2;
+    private javax.swing.JTextField invoiceNoEditText;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -986,6 +928,7 @@ public class PurchasePanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1010,15 +953,14 @@ public class PurchasePanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField paidTextField;
     private javax.swing.JTextField proCatEditText;
     private javax.swing.JTextField proIdEditText;
     private javax.swing.JTextField proQuantityEditText;
     private javax.swing.JTextField proRateEditText;
     private javax.swing.JButton productAddedCompleteBut;
+    private javax.swing.JTextField productLocationEditText;
     private javax.swing.JComboBox<String> productNameComboBox;
     private javax.swing.JTable productsjTable;
     private javax.swing.JButton saveAndNewBut;
@@ -1034,7 +976,7 @@ public class PurchasePanel extends javax.swing.JPanel {
 
         cardProductDTOList.add(cardProduct);
 
-        DefaultTableModel mobileRechargeDetailsInMobileRechargePanel = new DefaultTableModel(new String[]{"Id", "Cetagory", "Product Name", "Price", "Qty", "Total Price", "Exp Date"}, 0);
+        DefaultTableModel mobileRechargeDetailsInMobileRechargePanel = new DefaultTableModel(new String[]{"Id", "Cetagory", "Product Name", "Price", "Qty", "Total Price", "Exp Date", "Product Location"}, 0);
 
         for (CardProductDTO cardProductDTO : cardProductDTOList) {
             mobileRechargeDetailsInMobileRechargePanel.addRow(new Object[]{
@@ -1044,7 +986,8 @@ public class PurchasePanel extends javax.swing.JPanel {
                 cardProductDTO.getPrice(),
                 cardProductDTO.getQty(),
                 cardProductDTO.getTotalPrice(),
-                cardProduct.getExpDate()
+                cardProductDTO.getExpDate(),
+                cardProductDTO.getProductLocation()
             });
         }
 
@@ -1064,6 +1007,7 @@ public class PurchasePanel extends javax.swing.JPanel {
         proQuantityEditText.setText("");
         proRateEditText.setText("");
         expiedDateEditText.setText("");
+        productLocationEditText.setText("");
     }
 
     private void sideBarTotal() {

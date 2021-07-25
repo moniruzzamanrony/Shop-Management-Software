@@ -5,30 +5,30 @@
  */
 package frames;
 
-import configrations.DbConnector;
-import configrations.MySqlResponse;
+
 import dto.LoggedUserInfo;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 import logger.LoggerHelper;
 import services.AuthServiece;
-import utils.AlertUtils;
+import validators.EmailValidator;
+import validators.EmptyCheckValidator;
+import validators.Validator;
 
 /**
  *
  * @author monieuzzaman
  */
 public class LoginFrame extends javax.swing.JFrame {
+
     private boolean isLogged = false;
     private AuthServiece authServiece;
+
     /**
      * Creates new form LoginFrame
      */
     public LoginFrame() {
         initComponents();
-        authServiece= new AuthServiece();
+        authServiece = new AuthServiece();
     }
 
     /**
@@ -270,8 +270,10 @@ public class LoginFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void login() {
-      LoggedUserInfo loggedUserInfo= authServiece.login(usernameTextField.getText().toString(), passwordTextField.getText().toString());
-        LoggerHelper.error(loggedUserInfo.getEmail());
+        authServiece.login(usernameTextField.getText().toString(), passwordTextField.getText().toString());
+        this.setVisible(false);
+        new HomeFrame().setVisible(true);
+        
     }
 
     private void exit() {

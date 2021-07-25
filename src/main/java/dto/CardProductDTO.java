@@ -19,8 +19,11 @@ public class CardProductDTO {
     private double totalPrice;
    
     private String expDate;
+    private String productLocation;
 
-    public CardProductDTO(String id, String name, String cetagory, String price, String qty, double totalPrice, String expDate) {
+    public CardProductDTO(String id, String name, String cetagory, 
+            String price, String qty, double totalPrice, String expDate,
+            String productLocation) {
         this.id = id;
         this.name = name;
         this.cetagory = cetagory;
@@ -28,6 +31,7 @@ public class CardProductDTO {
         this.qty = qty;
         this.totalPrice = totalPrice;
         this.expDate = expDate;
+        this.productLocation = productLocation;
     }
 
     
@@ -60,6 +64,11 @@ public class CardProductDTO {
     public double getTotalPrice() {
         return totalPrice;
     }
+
+    public String getProductLocation() {
+        return productLocation;
+    }
+    
     
     
     

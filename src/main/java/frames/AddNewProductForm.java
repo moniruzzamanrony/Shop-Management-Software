@@ -6,23 +6,24 @@
 package frames;
 
 import configrations.DbConnector;
-import configrations.MySqlResponse;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import utils.AlertUtils;
 import utils.ApplicationUtils;
-import validators.AppValidator;
+import configrations.NonReturnMySqlResponse;
+import services.ProductCetagotyService;
 
 /**
  *
  * @author monieuzzaman
  */
 public class AddNewProductForm extends javax.swing.JFrame {
-    
+
     private boolean isDone = false;
     private DbConnector connector = new DbConnector();
+    private ProductCetagotyService productService;
 
     /**
      * Creates new form FormFrame
@@ -30,7 +31,9 @@ public class AddNewProductForm extends javax.swing.JFrame {
     public AddNewProductForm() {
         initComponents();
         this.setTitle("Add New Product");
-        
+
+        productService = new ProductCetagotyService();
+
     }
 
     /**
@@ -145,9 +148,9 @@ public class AddNewProductForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
-        if (AppValidator.isString(productCetagoryEditText.getText().toString())) {
-            save();
-        }
+
+        save();
+
     }//GEN-LAST:event_saveActionPerformed
 
     private void resetButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButActionPerformed
@@ -168,32 +171,15 @@ public class AddNewProductForm extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void save() {
-        
-        String query = "INSERT INTO `products` (`id`, `name`, `cetagory`, `brand`) "
-                + "VALUES ('" + ApplicationUtils.getRandomInt() + "', '" + productNameEditText.getText().toString() + "', '" + productCetagoryEditText.getText().toString() + "', '" + productBrandEditText.getText().toString() + "');";
-        connector.updateOrDeleteQueryExecutor(query, new MySqlResponse() {
-            @Override
-            public void onGetResponse(ResultSet resultSet) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-            
-            @Override
-            public void onUpdateAndDeleteResponse(int result) {
-                isDone = true;
-                AlertUtils.success("Add Successfully!");
-                reset();
-            }
-            
-            @Override
-            public void onError(String error) {
-                AlertUtils.error("Try Again!");
-            }
-        });
-        if (isDone) {
-            
+        if (productService.addNewProductNameAndCetagory(productNameEditText.getText().toString(),
+                productCetagoryEditText.getText().toString(), productBrandEditText.getText().toString())) {
+            AlertUtils.success("Product Added!");
+            reset();
+        } else {
+            AlertUtils.error("Try Again!");
         }
     }
-    
+
     private void reset() {
         productNameEditText.setText("");
         productCetagoryEditText.setText("");

@@ -19,4 +19,11 @@ public class ApplicationUtils {
         
         return x;
     }
+    
+   public static int getRandomInvoiceNo() {
+        Random ran = new Random();
+        int x = ran.nextInt(6) + 15500;
+        
+        return x;
+    }
 }

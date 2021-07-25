@@ -6,14 +6,12 @@
 package services;
 
 import configrations.DbConnector;
-import configrations.MySqlResponse;
 import dto.LoggedUserInfo;
-import frames.HomeFrame;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Logger;
 import logger.LoggerHelper;
 import utils.AlertUtils;
+import configrations.ReturnMySqlResponse;
 
 /**
  *
@@ -25,7 +23,8 @@ public class AuthServiece extends DbConnector {
 
     public LoggedUserInfo login(String phoneNo, String Password) {
 
-        getQueryExecutor("SELECT * FROM `user` WHERE `phone_no`='" + phoneNo + "' AND `password`='" + Password + "'", new MySqlResponse() {
+        getQueryExecutor("SELECT * FROM `user` WHERE `phone_no`='" + phoneNo
+                + "' AND `password`='" + Password + "'", new ReturnMySqlResponse() {
             @Override
             public void onGetResponse(ResultSet resultSet) {
 
@@ -50,18 +49,13 @@ public class AuthServiece extends DbConnector {
                     }
 
                 } catch (SQLException ex) {
-                    throw new UnsupportedOperationException(ex);
+                    AlertUtils.error(ex.getMessage());
                 }
             }
 
             @Override
-            public void onUpdateAndDeleteResponse(int result) {
-
-            }
-
-            @Override
             public void onError(String error) {
-                LoggerHelper.error(error);
+               AlertUtils.error(error);
             }
         });
         return info;

@@ -11,9 +11,7 @@ import java.sql.ResultSet;
  *
  * @author monieuzzaman
  */
-public interface MySqlResponse {
-    
-    void onGetResponse(ResultSet resultSet);
+public interface NonReturnMySqlResponse {
     
     void onUpdateAndDeleteResponse(int result);
     

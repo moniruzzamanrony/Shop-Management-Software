@@ -5,15 +5,13 @@
  */
 package frames;
 
-import configrations.DbConnector;
-import configrations.MySqlResponse;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import utils.AlertUtils;
-import utils.ApplicationUtils;
-import validators.AppValidator;
+import java.util.List;
+import services.SupplierService;
+import services.ValidatorService;
+import validators.EmailValidator;
+import validators.EmptyCheckValidator;
 
 /**
  *
@@ -21,8 +19,9 @@ import validators.AppValidator;
  */
 public class AddNewSupplierFormFrame extends javax.swing.JFrame {
 
-    private boolean isDone = false;
-    private DbConnector connector = new DbConnector();
+
+    private SupplierService supplierService;
+    private ValidatorService validatorService;
 
     /**
      * Creates new form FormFrame
@@ -30,6 +29,9 @@ public class AddNewSupplierFormFrame extends javax.swing.JFrame {
     public AddNewSupplierFormFrame() {
         initComponents();
         this.setTitle("Add New Supplier");
+
+        supplierService = new SupplierService();
+        validatorService = new ValidatorService();
 
     }
 
@@ -195,8 +197,19 @@ public class AddNewSupplierFormFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
-        if (AppValidator.isString(name.getText().toString())) {
+
+        if (validatorService.validate(List.of(
+                new EmptyCheckValidator(name.getText()),
+                new EmptyCheckValidator(mobileName.getText()),
+                new EmptyCheckValidator(address.getText()),
+                new EmptyCheckValidator(bankAcName.getText()),
+                new EmptyCheckValidator(bankName.getText()),
+                new EmptyCheckValidator(companyName.getText()),
+                new EmailValidator(emailEditText.getText())
+        ))) {
             save();
+        } else {
+            AlertUtils.warn("Invalid Valid Input!");
         }
     }//GEN-LAST:event_saveActionPerformed
 
@@ -227,28 +240,15 @@ public class AddNewSupplierFormFrame extends javax.swing.JFrame {
 
     private void save() {
 
-        String query = "INSERT INTO `suppliers` (`id`, `name`, `phone_no`, `email`, `company_name`, `bank_name`, `bank__ac_no`, `address`, `is_active`) "
-                + "VALUES ('" + ApplicationUtils.getRandomInt() + "', '" + name.getText().toString() + "', '" + mobileName.getText().toString() + "', '" + emailEditText.getText().toString() + "', '" + companyName.getText().toString() + "', '" + bankName.getText().toString() + "', '" + bankAcName.getText().toString() + "', '" + address.getText().toString() + "', b'1');";
-        connector.updateOrDeleteQueryExecutor(query, new MySqlResponse() {
-            @Override
-            public void onGetResponse(ResultSet resultSet) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-
-            @Override
-            public void onUpdateAndDeleteResponse(int result) {
-                isDone = true;
-                AlertUtils.success("Add Successfully!");
-                reset();
-            }
-
-            @Override
-            public void onError(String error) {
-                AlertUtils.error("Try Again!");
-            }
-        });
-        if (isDone) {
-
+        boolean isSuccess = supplierService.addNewSupplier(name.getText(), mobileName.getText(),
+                emailEditText.getText(), companyName.getText(),
+                bankName.getText(), bankAcName.getText(), address.getText());
+        if (isSuccess) {
+            AlertUtils.success("Supplier Added!");
+            reset();          
+         
+        } else {
+            AlertUtils.error("Try Again!");
         }
     }
 
@@ -259,6 +259,7 @@ public class AddNewSupplierFormFrame extends javax.swing.JFrame {
         companyName.setText("");
         bankAcName.setText("");
         bankName.setText("");
+        address.setText("");
 
     }
 }

@@ -11,14 +11,14 @@ package dto;
  */
 public class LoggedUserInfo {
 
-    private int userId;
-    private String name;
-    private String phoneNo;
-    private String email;
-    private String shopName;
-    private String shopAddress;
-    private String logoUrl;
-    private String role;
+    private static int userId;
+    private static String name;
+    private static String phoneNo;
+    private static String email;
+    private static String shopName;
+    private static String shopAddress;
+    private static String logoUrl;
+    private static String role;
 
     public LoggedUserInfo(int userId, String name, String phoneNo, String email,
             String shopName, String shopAddress, String logoUrl, String role) {
@@ -32,23 +32,23 @@ public class LoggedUserInfo {
         this.role = role;
     }
 
-    public int getUserId() {
+    public static int getUserId() {
         return userId;
     }
 
-    public String getName() {
+    public static String getName() {
         return name;
     }
 
-    public String getPhoneNo() {
+    public static String getPhoneNo() {
         return phoneNo;
     }
 
-    public String getEmail() {
+    public static String getEmail() {
         return email;
     }
 
-    public String getShopName() {
+    public static String getShopName() {
         return shopName;
     }
 
@@ -60,7 +60,7 @@ public class LoggedUserInfo {
         return logoUrl;
     }
 
-    public String getRole() {
+    public static String getRole() {
         return role;
     }
     

@@ -9,13 +9,18 @@ import utils.AlertUtils;
 
 /**
  *
- * @author monieuzzaman
+ * @author moniruzzaman.rony
  */
-public class AppValidator {
+public class EmptyCheckValidator extends Validator{
 
-    public static boolean isString(String value) {
-        if (value == null || value.isEmpty()) {
-            AlertUtils.warn("Invalid Value!!");
+    public EmptyCheckValidator(String value) {
+        super(value);
+    }
+
+    
+    @Override
+    public boolean validate() {
+       if (value == null || value.isEmpty()) {
             return false;
 
         } else {
@@ -23,4 +28,8 @@ public class AppValidator {
             return true;
         }
     }
+
+    
+   
+    
 }
