@@ -6,13 +6,8 @@
 package frames;
 
 
-import dto.LoggedUserInfo;
-import java.util.List;
-import logger.LoggerHelper;
 import services.AuthServiece;
-import validators.EmailValidator;
-import validators.EmptyCheckValidator;
-import validators.Validator;
+
 
 /**
  *
@@ -270,10 +265,11 @@ public class LoginFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void login() {
-        authServiece.login(usernameTextField.getText().toString(), passwordTextField.getText().toString());
-        this.setVisible(false);
-        new HomeFrame().setVisible(true);
-        
+        if (authServiece.login(usernameTextField.getText().toString(), passwordTextField.getText().toString())) {
+            this.setVisible(false);
+            new HomeFrame().setVisible(true);
+        }
+
     }
 
     private void exit() {

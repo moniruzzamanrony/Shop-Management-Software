@@ -19,9 +19,9 @@ import configrations.ReturnMySqlResponse;
  */
 public class AuthServiece extends DbConnector {
 
-    LoggedUserInfo info;
+    boolean isLogged = false;
 
-    public LoggedUserInfo login(String phoneNo, String Password) {
+    public boolean login(String phoneNo, String Password) {
 
         getQueryExecutor("SELECT * FROM `user` WHERE `phone_no`='" + phoneNo
                 + "' AND `password`='" + Password + "'", new ReturnMySqlResponse() {
@@ -33,8 +33,8 @@ public class AuthServiece extends DbConnector {
                         AlertUtils.warn("Wrong phone no or password.");
                     } else {
                         while (resultSet.next()) {
-                            String id = resultSet.getString("name");
-                            info = new LoggedUserInfo(
+
+                            new LoggedUserInfo(
                                     Integer.valueOf(resultSet.getString("id")),
                                     resultSet.getString("name"),
                                     resultSet.getString("phone_no"),
@@ -44,8 +44,9 @@ public class AuthServiece extends DbConnector {
                                     resultSet.getString("logo_url"),
                                     resultSet.getString("role")
                             );
-
+                            isLogged = true;
                         }
+
                     }
 
                 } catch (SQLException ex) {
@@ -55,10 +56,10 @@ public class AuthServiece extends DbConnector {
 
             @Override
             public void onError(String error) {
-               AlertUtils.error(error);
+                AlertUtils.error(error);
             }
         });
-        return info;
+        return isLogged;
 
     }
 }

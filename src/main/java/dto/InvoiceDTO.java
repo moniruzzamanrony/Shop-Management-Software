@@ -5,7 +5,7 @@
  */
 package dto;
 
-import Enums.InvoiceType;
+import enums.InvoiceType;
 import java.util.List;
 
 /**

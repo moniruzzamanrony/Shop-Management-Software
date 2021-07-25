@@ -5,7 +5,7 @@
  */
 package panels;
 
-import Enums.InvoiceType;
+import enums.InvoiceType;
 import dto.CardProductDTO;
 import dto.InvoiceDTO;
 import dto.InvoiceDetailsDTO;

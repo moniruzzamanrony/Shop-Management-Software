@@ -5,17 +5,37 @@
  */
 package services;
 
+import configrations.DbConnector;
+import configrations.NonReturnMySqlResponse;
 import dto.InvoiceDTO;
+import utils.AlertUtils;
 
 /**
  *
  * @author monieuzzaman
  */
-public class ProductPurchaseService implements InvoiceService{
+public class ProductPurchaseService extends DbConnector implements InvoiceService {
 
     @Override
     public void saveInvoice(InvoiceDTO invoiceDTO) {
-      
+
+        String query = "";
+        
+        nonReturnQueryExecutor(query, new NonReturnMySqlResponse() {
+
+            @Override
+            public void onUpdateAndDeleteResponse(int result) {
+               
+
+            }
+
+            @Override
+            public void onError(String error) {
+
+                AlertUtils.error(error);
+            }
+        });
+
     }
-    
+
 }
