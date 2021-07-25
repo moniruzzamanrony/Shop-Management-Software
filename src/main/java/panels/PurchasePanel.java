@@ -24,12 +24,11 @@ import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import dto.ProductCetagoryDTO;
 import dto.SupplierDTO;
-import java.util.Collections;
 import java.util.stream.Collectors;
 import services.ProductCetagotyService;
-import services.InvoiceService;
 import services.ProductPurchaseService;
 import services.SupplierService;
+import utils.AlertUtils;
 import utils.ApplicationUtils;
 
 /**
@@ -37,12 +36,12 @@ import utils.ApplicationUtils;
  * @author monieuzzaman
  */
 public class PurchasePanel extends javax.swing.JPanel {
-    
+
     private List<CardProductDTO> cardProductDTOList = new ArrayList<>();
     private SupplierService supplierService;
     private ProductCetagotyService cetagotyService;
     private ProductPurchaseService productPurchaseService;
-    
+
     private final int INVOICE_NO = ApplicationUtils.getRandomInvoiceNo();
 
     /**
@@ -64,19 +63,19 @@ public class PurchasePanel extends javax.swing.JPanel {
         supplierIsNameComboBox.addItem("Select");
         supplierService.getSuppliers().stream().forEach(supplier
                 -> supplierIsNameComboBox.addItem(supplier.getName()));
-        
+
         supplierIsNameComboBox.addItemListener(new ItemListener() {
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     String name = supplierIsNameComboBox.getSelectedItem().toString();
-                    
+
                     SupplierDTO supplierDTO = supplierService.getByName(name);
-                    
+
                     supplierPhoneNoEditText.setText(supplierDTO.getPhoneNo());
                     supplierIDEditText.setText(String.valueOf(supplierDTO.getId()));
-                    
+
                 }
-                
+
             }
         });
 
@@ -84,19 +83,19 @@ public class PurchasePanel extends javax.swing.JPanel {
         productNameComboBox.removeAllItems();
         productNameComboBox.addItem("Select");
         cetagotyService.getAll().forEach(cetagory -> productNameComboBox.addItem(cetagory.getName()));
-        
+
         productNameComboBox.addItemListener(new ItemListener() {
-            
+
             public void itemStateChanged(ItemEvent e) {
-                
+
                 System.err.println(productNameComboBox.getSelectedItem().toString());
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     String name = productNameComboBox.getSelectedItem().toString();
                     ProductCetagoryDTO cetagoryDTO = cetagotyService.getByName(name);
-                    
+
                     proCatEditText.setText(cetagoryDTO.getCetagoty());
                     proIdEditText.setText(String.valueOf(cetagoryDTO.getId()));
-                    
+
                 }
             }
         });
@@ -862,19 +861,19 @@ public class PurchasePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_supplierPhoneNoEditTextActionPerformed
 
     private void addCardButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCardButActionPerformed
-        
+
         addDataInTable(new CardProductDTO(proIdEditText.getText(), proCatEditText.getText(),
                 productNameComboBox.getSelectedItem().toString(), proQuantityEditText.getText(),
                 proRateEditText.getText(), Double.valueOf(proRateEditText.getText()) * Double.valueOf(proQuantityEditText.getText()),
                 expiedDateEditText.getText(), productLocationEditText.getText()));
-        
+
         reset();
         sideBarTotal();
     }//GEN-LAST:event_addCardButActionPerformed
 
     private void vatEditTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_vatEditTextKeyReleased
         double cal = (Double.valueOf(subTotalEditText.getText()) * Integer.valueOf(vatEditText.getText())) / 100;
-        
+
         grandTotalEditText.setText(String.valueOf(Double.valueOf(subTotalEditText.getText()) + cal));
         System.err.println(vatEditText.getText());
     }//GEN-LAST:event_vatEditTextKeyReleased
@@ -885,9 +884,9 @@ public class PurchasePanel extends javax.swing.JPanel {
 
     private void discountTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_discountTextFieldKeyReleased
         double cal = (Double.valueOf(subTotalEditText.getText()) * Double.valueOf(discountTextField.getText())) / 100;
-        
+
         grandTotalEditText.setText(String.valueOf(Double.valueOf(subTotalEditText.getText()) - cal));
-        
+
     }//GEN-LAST:event_discountTextFieldKeyReleased
 
     private void paidTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_paidTextFieldKeyReleased
@@ -914,7 +913,7 @@ public class PurchasePanel extends javax.swing.JPanel {
         invoiceDTO.setCreateDate(ApplicationUtils.getCurrentDateAndTime());
         invoiceDTO.setIssueDateAndTime(issueDateEditText.getText());
         invoiceDTO.setInvoiceType(InvoiceType.PURCHASE);
-        
+
         List<InvoiceDetailsDTO> invoiceDetailsDTOs = cardProductDTOList.stream().map(card
                 -> new InvoiceDetailsDTO(ApplicationUtils.getRandomInt(), Double.valueOf(card.getPrice()),
                         Integer.valueOf(proIdEditText.getText()),
@@ -923,7 +922,7 @@ public class PurchasePanel extends javax.swing.JPanel {
                         Integer.valueOf(discountTextField.getText()), INVOICE_NO)
         ).collect(Collectors.toList());
         invoiceDTO.setDetailsDTOs(invoiceDetailsDTOs);
-        
+
         saveInvoice(invoiceDTO);
     }//GEN-LAST:event_saveAndNewButActionPerformed
 
@@ -1007,11 +1006,11 @@ public class PurchasePanel extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void addDataInTable(CardProductDTO cardProduct) {
-        
+
         cardProductDTOList.add(cardProduct);
-        
+
         DefaultTableModel mobileRechargeDetailsInMobileRechargePanel = new DefaultTableModel(new String[]{"Id", "Cetagory", "Product Name", "Price", "Qty", "Total Price", "Exp Date", "Product Location"}, 0);
-        
+
         for (CardProductDTO cardProductDTO : cardProductDTOList) {
             mobileRechargeDetailsInMobileRechargePanel.addRow(new Object[]{
                 cardProductDTO.getId(),
@@ -1024,37 +1023,37 @@ public class PurchasePanel extends javax.swing.JPanel {
                 cardProductDTO.getProductLocation()
             });
         }
-        
+
         productsjTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
         productsjTable.getTableHeader().setOpaque(false);
 
         //For jTable contant in center
         DefaultTableCellRenderer stringRenderer = (DefaultTableCellRenderer) productsjTable.getDefaultRenderer(String.class);
         stringRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-        
+
         productsjTable.setEnabled(false);
         productsjTable.setRowHeight(35);
         productsjTable.setModel(mobileRechargeDetailsInMobileRechargePanel);
     }
-    
+
     private void reset() {
         proQuantityEditText.setText("");
         proRateEditText.setText("");
         expiedDateEditText.setText("");
         productLocationEditText.setText("");
     }
-    
+
     private void sideBarTotal() {
-        
+
         double total = 0.0;
         for (CardProductDTO cardProductDTO : cardProductDTOList) {
             total = total + cardProductDTO.getTotalPrice();
-            
+
         }
         subTotalEditText.setText(String.valueOf(total));
         grandTotalEditText.setText(subTotalEditText.getText());
     }
-    
+
     private void disableDefault(boolean isDisable) {
         vatEditText.setEditable(isDisable);
         transportTextField.setEditable(isDisable);
@@ -1063,8 +1062,12 @@ public class PurchasePanel extends javax.swing.JPanel {
         addCardBut.setVisible(!isDisable);
         saveAndNewBut.setVisible(isDisable);
     }
-    
+
     private void saveInvoice(InvoiceDTO invoiceDTO) {
-        productPurchaseService.saveInvoice(invoiceDTO);
+        boolean isSuccess = productPurchaseService.saveInvoice(invoiceDTO);
+        if (isSuccess) {
+            AlertUtils.success("Invoice Added!!");
+            
+        }
     }
 }

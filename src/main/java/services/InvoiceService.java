@@ -12,5 +12,5 @@ import dto.InvoiceDTO;
  * @author moniruzzaman.rony
  */
 public interface InvoiceService {
-   void saveInvoice(InvoiceDTO invoiceDTO);
+   boolean saveInvoice(InvoiceDTO invoiceDTO);
 }
