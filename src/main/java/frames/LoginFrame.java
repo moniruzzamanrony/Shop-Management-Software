@@ -273,6 +273,7 @@ public class LoginFrame extends javax.swing.JFrame {
     }
 
     private void exit() {
+        System.out.println("frames.LoginFrame.exit()");
         System.exit(0);
     }
 }

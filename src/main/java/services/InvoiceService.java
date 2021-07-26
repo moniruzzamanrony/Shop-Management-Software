@@ -6,6 +6,7 @@
 package services;
 
 import dto.InvoiceDTO;
+import java.util.List;
 
 /**
  *
@@ -13,4 +14,6 @@ import dto.InvoiceDTO;
  */
 public interface InvoiceService {
    boolean saveInvoice(InvoiceDTO invoiceDTO);
+   
+   List<InvoiceDTO> getInvoiceList();
 }

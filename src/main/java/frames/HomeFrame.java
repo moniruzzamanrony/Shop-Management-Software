@@ -7,7 +7,7 @@ package frames;
 
 import javax.swing.JPanel;
 import panels.MyProductsPanel;
-import panels.ProductsReportPanel;
+import panels.InvoicesReportPanel;
 import panels.PurchasePanel;
 import panels.PurchaseReportPanel;
 import panels.SellPanel;
@@ -341,7 +341,7 @@ public class HomeFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_purchaseReportjButtonActionPerformed
 
     private void ProductReportjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProductReportjButtonActionPerformed
-        switchPanel(new ProductsReportPanel());
+        switchPanel(new InvoicesReportPanel());
     }//GEN-LAST:event_ProductReportjButtonActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
