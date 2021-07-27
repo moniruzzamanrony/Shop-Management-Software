@@ -26,7 +26,7 @@ import dto.ProductCetagoryDTO;
 import dto.SupplierDTO;
 import java.util.stream.Collectors;
 import services.ProductCetagotyService;
-import services.ProductPurchaseInvoiceService;
+import services.InvoiceService;
 import services.SupplierService;
 import utils.AlertUtils;
 import utils.ApplicationUtils;
@@ -40,7 +40,7 @@ public class PurchasePanel extends javax.swing.JPanel {
     private List<CardProductDTO> cardProductDTOList = new ArrayList<>();
     private SupplierService supplierService;
     private ProductCetagotyService cetagotyService;
-    private ProductPurchaseInvoiceService productPurchaseService;
+    private InvoiceService productPurchaseService;
 
     private final int INVOICE_NO = ApplicationUtils.getRandomInvoiceNo();
 
@@ -52,7 +52,7 @@ public class PurchasePanel extends javax.swing.JPanel {
         // Object Create
         supplierService = new SupplierService();
         cetagotyService = new ProductCetagotyService();
-        productPurchaseService = new ProductPurchaseInvoiceService();
+        productPurchaseService = new InvoiceService();
 
         // Auto Completed
         AutoCompleteDecorator.decorate(supplierIsNameComboBox);

@@ -5,11 +5,15 @@
  */
 package panels;
 
+import dto.InvoiceDTO;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.List;
+import java.util.logging.Logger;
+import org.apache.log4j.spi.LoggerFactory;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import services.ProductCetagotyService;
-import services.ProductPurchaseInvoiceService;
+import services.InvoiceService;
 import services.SupplierService;
 
 /**
@@ -19,15 +23,16 @@ import services.SupplierService;
 public class InvoicesReportPanel extends javax.swing.JPanel {
 
     private ProductCetagotyService cetagotyService;
-    private ProductPurchaseInvoiceService productPurchaseService;
+    private InvoiceService invoiceService;
     private SupplierService supplierService;
+    private Logger log = Logger.getLogger(InvoicesReportPanel.class.getName());
 
     public InvoicesReportPanel() {
         initComponents();
 
         // Object Create
         cetagotyService = new ProductCetagotyService();
-        productPurchaseService = new ProductPurchaseInvoiceService();
+        invoiceService = new InvoiceService();
         supplierService = new SupplierService();
 
         // Default Config
@@ -242,40 +247,53 @@ public class InvoicesReportPanel extends javax.swing.JPanel {
         shopOrCustomersComboBox.removeAllItems();
         shopOrCustomersComboBox.addItem("Select");
         if (isPurchase.isSelected()) {
-            productPurchaseService.getInvoiceList().forEach(invoice
-                    -> shopOrCustomersComboBox.addItem(supplierService.getSupplierDetaisById(invoice.getSupplierId()).getCompanyName()));
+            log.info("Purchase Selected");
+            invoiceService.getInvoiceList().forEach(invoice
+                    -> shopOrCustomersComboBox.addItem(supplierService.getSupplierDetaisById(invoice.getSupplierId()).getName()));
         }
         if (isSell.isSelected()) {
-            productPurchaseService.getInvoiceList().forEach(invoice -> shopOrCustomersComboBox.addItem(String.valueOf(invoice.getInvoiceId())));
+            log.info("Sell Selected");
+            //TODO: Sell logic implement here
+            invoiceService.getInvoiceList().forEach(invoice -> shopOrCustomersComboBox.addItem(String.valueOf(invoice.getInvoiceId())));
         }
 
         shopOrCustomersComboBox.addItemListener(new ItemListener() {
 
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
-                    String name = invoiceNoComboBox.getSelectedItem().toString();
-                    System.err.println(name);
+                    String name = shopOrCustomersComboBox.getSelectedItem().toString();
+
+                    log.info("Customer Name: " + name);
+                    addInvoiceNoInCombox(supplierService.getByName(name).getId());
 
                 }
             }
         });
     }
 
-    public void addInvoiceNoInCombox(String Name) {
-//        //Add Product Name in Combobox
-//        invoiceNoComboBox.removeAllItems();
-//        invoiceNoComboBox.addItem("Select");
-//        productPurchaseService.getInvoiceListByName();
-//
-//        invoiceNoComboBox.addItemListener(new ItemListener() {
-//
-//            public void itemStateChanged(ItemEvent e) {
-//                if (e.getStateChange() == ItemEvent.SELECTED) {
-//                    String name = invoiceNoComboBox.getSelectedItem().toString();
-//                    System.err.println(name);
-//
-//                }
-//            }
-//        });
+    public void addInvoiceNoInCombox(int supplierId) {
+        //Add Product Name in Combobox
+        invoiceNoComboBox.removeAllItems();
+        invoiceNoComboBox.addItem("Select");
+        invoiceService.getInvoiceListBySupplierId(supplierId).forEach(invoice
+                -> invoiceNoComboBox.addItem(String.valueOf(invoice.getInvoiceId()))
+        );
+
+        invoiceNoComboBox.addItemListener(new ItemListener() {
+
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    String invoiceNo = invoiceNoComboBox.getSelectedItem().toString();
+                    showInvoiceInTableByInvoiceNO(invoiceNo);
+
+                }
+            }
+
+            private void showInvoiceInTableByInvoiceNO(String invoiceNo) {
+                log.info("Searching invoice List By " + invoiceNo + " for table show");
+                List<InvoiceDTO> invoiceDTOs = invoiceService.getInvoiceListByInvoiceNo(invoiceNo);
+                log.info("Getting Result "+invoiceDTOs);
+            }
+        });
     }
 }
