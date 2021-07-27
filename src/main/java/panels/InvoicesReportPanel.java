@@ -9,7 +9,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import services.ProductCetagotyService;
-import services.ProductPurchaseService;
+import services.ProductPurchaseInvoiceService;
 import services.SupplierService;
 
 /**
@@ -19,7 +19,7 @@ import services.SupplierService;
 public class InvoicesReportPanel extends javax.swing.JPanel {
 
     private ProductCetagotyService cetagotyService;
-    private ProductPurchaseService productPurchaseService;
+    private ProductPurchaseInvoiceService productPurchaseService;
     private SupplierService supplierService;
 
     public InvoicesReportPanel() {
@@ -27,7 +27,7 @@ public class InvoicesReportPanel extends javax.swing.JPanel {
 
         // Object Create
         cetagotyService = new ProductCetagotyService();
-        productPurchaseService = new ProductPurchaseService();
+        productPurchaseService = new ProductPurchaseInvoiceService();
         supplierService = new SupplierService();
 
         // Default Config
@@ -262,20 +262,20 @@ public class InvoicesReportPanel extends javax.swing.JPanel {
     }
 
     public void addInvoiceNoInCombox(String Name) {
-        //Add Product Name in Combobox
-        invoiceNoComboBox.removeAllItems();
-        invoiceNoComboBox.addItem("Select");
-        productPurchaseService.getInvoiceListByName();
-
-        invoiceNoComboBox.addItemListener(new ItemListener() {
-
-            public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    String name = invoiceNoComboBox.getSelectedItem().toString();
-                    System.err.println(name);
-
-                }
-            }
-        });
+//        //Add Product Name in Combobox
+//        invoiceNoComboBox.removeAllItems();
+//        invoiceNoComboBox.addItem("Select");
+//        productPurchaseService.getInvoiceListByName();
+//
+//        invoiceNoComboBox.addItemListener(new ItemListener() {
+//
+//            public void itemStateChanged(ItemEvent e) {
+//                if (e.getStateChange() == ItemEvent.SELECTED) {
+//                    String name = invoiceNoComboBox.getSelectedItem().toString();
+//                    System.err.println(name);
+//
+//                }
+//            }
+//        });
     }
 }
