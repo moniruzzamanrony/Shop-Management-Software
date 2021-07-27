@@ -916,11 +916,12 @@ public class PurchasePanel extends javax.swing.JPanel {
 
         List<InvoiceDetailsDTO> invoiceDetailsDTOs = cardProductDTOList.stream().map(card
                 -> new InvoiceDetailsDTO(ApplicationUtils.getRandomInt(), Double.valueOf(card.getPrice()),
-                        Integer.valueOf(proIdEditText.getText()),
+                        Integer.valueOf(card.getId()),
                         Integer.valueOf(card.getQty()), Double.valueOf(card.getTotalPrice()),
                         card.getExpDate(), card.getProductLocation(),
                         Integer.valueOf(discountTextField.getText()), INVOICE_NO)
         ).collect(Collectors.toList());
+        
         invoiceDTO.setDetailsDTOs(invoiceDetailsDTOs);
 
         saveInvoice(invoiceDTO);

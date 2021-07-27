@@ -44,7 +44,7 @@ public class HomeFrame extends javax.swing.JFrame {
         jMenuItem13 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        selljButton = new javax.swing.JButton();
+        deshboardjButton = new javax.swing.JButton();
         returnjButton = new javax.swing.JButton();
         myProductsjButton = new javax.swing.JButton();
         purchasejButton = new javax.swing.JButton();
@@ -53,6 +53,7 @@ public class HomeFrame extends javax.swing.JFrame {
         sellReportjButton = new javax.swing.JButton();
         purchaseReportjButton = new javax.swing.JButton();
         MyInvoiceReportjButton = new javax.swing.JButton();
+        selljButton = new javax.swing.JButton();
         basePanel = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -97,10 +98,10 @@ public class HomeFrame extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Selles");
 
-        selljButton.setText("Sell");
-        selljButton.addActionListener(new java.awt.event.ActionListener() {
+        deshboardjButton.setText("Deshboard");
+        deshboardjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selljButtonActionPerformed(evt);
+                deshboardjButtonActionPerformed(evt);
             }
         });
 
@@ -158,12 +159,19 @@ public class HomeFrame extends javax.swing.JFrame {
             }
         });
 
+        selljButton.setText("Sell");
+        selljButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selljButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(selljButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(deshboardjButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(returnjButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(myProductsjButton, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
             .addComponent(purchasejButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -172,12 +180,15 @@ public class HomeFrame extends javax.swing.JFrame {
             .addComponent(sellReportjButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(purchaseReportjButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(MyInvoiceReportjButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(selljButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(deshboardjButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(selljButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -196,7 +207,7 @@ public class HomeFrame extends javax.swing.JFrame {
                 .addComponent(purchaseReportjButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(MyInvoiceReportjButton)
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
 
         basePanel.setLayout(new java.awt.CardLayout());
@@ -352,9 +363,9 @@ public class HomeFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
-    private void selljButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selljButtonActionPerformed
+    private void deshboardjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deshboardjButtonActionPerformed
         switchPanel(new SellPanel());
-    }//GEN-LAST:event_selljButtonActionPerformed
+    }//GEN-LAST:event_deshboardjButtonActionPerformed
 
     private void returnjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnjButtonActionPerformed
         switchPanel(new SellReturnPanel());
@@ -372,10 +383,15 @@ public class HomeFrame extends javax.swing.JFrame {
         switchPanel(new TransactionPanel());
     }//GEN-LAST:event_transactionjButtonActionPerformed
 
+    private void selljButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selljButtonActionPerformed
+        switchPanel(new SellPanel());
+    }//GEN-LAST:event_selljButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton MyInvoiceReportjButton;
     private javax.swing.JPanel basePanel;
+    private javax.swing.JButton deshboardjButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -14,6 +14,7 @@ import utils.AlertUtils;
 import utils.ApplicationUtils;
 import configrations.NonReturnMySqlResponse;
 import services.ProductCetagotyService;
+import services.ProductsService;
 
 /**
  *
@@ -23,7 +24,8 @@ public class AddNewProductForm extends javax.swing.JFrame {
 
     private boolean isDone = false;
     private DbConnector connector = new DbConnector();
-    private ProductCetagotyService productService;
+    private ProductCetagotyService productCetagotyService;
+    private ProductsService productsService;
 
     /**
      * Creates new form FormFrame
@@ -32,7 +34,8 @@ public class AddNewProductForm extends javax.swing.JFrame {
         initComponents();
         this.setTitle("Add New Product");
 
-        productService = new ProductCetagotyService();
+        productCetagotyService = new ProductCetagotyService();
+        productsService = new ProductsService();
 
     }
 
@@ -171,8 +174,9 @@ public class AddNewProductForm extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void save() {
-        if (productService.addNewProductNameAndCetagory(productNameEditText.getText().toString(),
+        if (productCetagotyService.addNewProductNameAndCetagory(productNameEditText.getText().toString(),
                 productCetagoryEditText.getText().toString(), productBrandEditText.getText().toString())) {
+           
             AlertUtils.success("Product Added!");
             reset();
         } else {

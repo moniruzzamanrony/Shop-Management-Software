@@ -18,6 +18,8 @@ public class ProductCetagoryDTO {
     private String cetagoty;
 
     private String brand;
+    
+    private String stock;
 
     public int getId() {
         return id;
@@ -50,6 +52,15 @@ public class ProductCetagoryDTO {
     public void setBrand(String brand) {
         this.brand = brand;
     }
+
+    public String getStock() {
+        return stock;
+    }
+
+    public void setStock(String stock) {
+        this.stock = stock;
+    }
+    
 
     @Override
     public String toString() {

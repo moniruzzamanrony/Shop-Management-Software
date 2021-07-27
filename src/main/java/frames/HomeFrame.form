@@ -202,7 +202,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="jLabel1" max="32767" attributes="0"/>
-              <Component id="selljButton" alignment="0" max="32767" attributes="0"/>
+              <Component id="deshboardjButton" alignment="0" max="32767" attributes="0"/>
               <Component id="returnjButton" alignment="0" max="32767" attributes="0"/>
               <Component id="myProductsjButton" alignment="0" pref="115" max="32767" attributes="0"/>
               <Component id="purchasejButton" alignment="0" max="32767" attributes="0"/>
@@ -211,6 +211,7 @@
               <Component id="sellReportjButton" alignment="0" max="32767" attributes="0"/>
               <Component id="purchaseReportjButton" alignment="0" max="32767" attributes="0"/>
               <Component id="MyInvoiceReportjButton" alignment="0" max="32767" attributes="0"/>
+              <Component id="selljButton" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -218,6 +219,8 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="deshboardjButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="selljButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -236,7 +239,7 @@
                   <Component id="purchaseReportjButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="MyInvoiceReportjButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="140" max="32767" attributes="0"/>
+                  <EmptySpace pref="102" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -254,12 +257,12 @@
             <Property name="text" type="java.lang.String" value="Selles"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="selljButton">
+        <Component class="javax.swing.JButton" name="deshboardjButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Sell"/>
+            <Property name="text" type="java.lang.String" value="Deshboard"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="selljButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deshboardjButtonActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="returnjButton">
@@ -328,6 +331,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MyInvoiceReportjButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="selljButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Sell"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="selljButtonActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
