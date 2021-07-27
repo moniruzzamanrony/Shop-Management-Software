@@ -158,9 +158,9 @@ public class InvoiceService extends DbConnector {
         return invoiceDTOs;
     }
 
-    public List<InvoiceDTO> getInvoiceListByInvoiceNo(String invoiceNo) {
+    public InvoiceDTO getInvoiceListByInvoiceNo(String invoiceNo) {
         log.info("Invoice getting by " + invoiceNo);
-        List<InvoiceDTO> invoiceDTOs = new ArrayList<>();
+        InvoiceDTO invoiceDTO = new InvoiceDTO();
         String query = "SELECT * FROM `invoice` where `invoice_no` = '" + invoiceNo + "'";
 
         getQueryExecutor(query, new ReturnMySqlResponse() {
@@ -169,7 +169,7 @@ public class InvoiceService extends DbConnector {
                 try {
                     while (resultSet.next()) {
 
-                        InvoiceDTO invoiceDTO = new InvoiceDTO();
+                        
                         invoiceDTO.setInvoiceId(resultSet.getInt("invoice_no"));
                         invoiceDTO.setSupplierId(resultSet.getString("supplier_id"));
                         invoiceDTO.setSubTotal(Double.valueOf(resultSet.getInt("sub_total")));
@@ -184,7 +184,7 @@ public class InvoiceService extends DbConnector {
                         invoiceDTO.setIssueDateAndTime(resultSet.getString("issue_date_time"));
                         invoiceDTO.setInvoiceType(InvoiceType.valueOf(resultSet.getString("invoice_type")));
 
-                        invoiceDTOs.add(invoiceDTO);
+                       
 
                     }
                 } catch (SQLException ex) {
@@ -197,7 +197,7 @@ public class InvoiceService extends DbConnector {
                 AlertUtils.error(error);
             }
         });
-        return invoiceDTOs;
+        return invoiceDTO;
     }
 
 }

@@ -5,11 +5,17 @@
  */
 package panels;
 
+import dto.CardProductDTO;
 import dto.InvoiceDTO;
+import java.awt.Font;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.List;
 import java.util.logging.Logger;
+import javax.swing.JButton;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import org.apache.log4j.spi.LoggerFactory;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import services.ProductCetagotyService;
@@ -56,7 +62,12 @@ public class InvoicesReportPanel extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        productsTable = new javax.swing.JTable();
+        invoicesTable = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         shopOrCustomersComboBox = new javax.swing.JComboBox<>();
@@ -68,7 +79,22 @@ public class InvoicesReportPanel extends javax.swing.JPanel {
         isPurchase = new javax.swing.JRadioButton();
         isSell = new javax.swing.JRadioButton();
 
-        productsTable.setModel(new javax.swing.table.DefaultTableModel(
+        invoicesTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(invoicesTable);
+
+        jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(103, 147, 38));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Product Details");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -79,17 +105,40 @@ public class InvoicesReportPanel extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(productsTable);
+        jScrollPane2.setViewportView(jTable1);
+
+        jButton1.setBackground(new java.awt.Color(167, 37, 20));
+        jButton1.setText("Delete");
+
+        jButton2.setBackground(new java.awt.Color(167, 37, 20));
+        jButton2.setText("Edit");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1)
+            .addComponent(jScrollPane2)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
+            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(210, 216, 222));
@@ -112,7 +161,7 @@ public class InvoicesReportPanel extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(0, 101, Short.MAX_VALUE))
+                        .addGap(0, 109, Short.MAX_VALUE))
                     .addComponent(shopOrCustomersComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -142,7 +191,7 @@ public class InvoicesReportPanel extends javax.swing.JPanel {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(invoiceNoComboBox, 0, 290, Short.MAX_VALUE)
+                    .addComponent(invoiceNoComboBox, 0, 298, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -188,7 +237,7 @@ public class InvoicesReportPanel extends javax.swing.JPanel {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(isPurchase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(isSell, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(114, Short.MAX_VALUE))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,7 +256,7 @@ public class InvoicesReportPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 943, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 968, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,17 +278,22 @@ public class InvoicesReportPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> invoiceNoComboBox;
+    private javax.swing.JTable invoicesTable;
     private javax.swing.JRadioButton isPurchase;
     private javax.swing.JRadioButton isSell;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable productsTable;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
     private javax.swing.JComboBox<String> shopOrCustomersComboBox;
     // End of variables declaration//GEN-END:variables
 
@@ -291,8 +345,38 @@ public class InvoicesReportPanel extends javax.swing.JPanel {
 
             private void showInvoiceInTableByInvoiceNO(String invoiceNo) {
                 log.info("Searching invoice List By " + invoiceNo + " for table show");
-                List<InvoiceDTO> invoiceDTOs = invoiceService.getInvoiceListByInvoiceNo(invoiceNo);
-                log.info("Getting Result "+invoiceDTOs);
+                InvoiceDTO invoiceDTO = invoiceService.getInvoiceListByInvoiceNo(invoiceNo);
+                log.info("Getting Result " + invoiceDTO);
+
+                DefaultTableModel invoiceTableModel = new DefaultTableModel(new String[]{"Id", "Issue Date", "Sub Total",
+                    "Vat", "Discout","Transport Cost", "Total", "Paid", "Due", "Create By", "Create Time"}, 0);
+              
+                    invoiceTableModel.addRow(new Object[]{
+                        invoiceDTO.getInvoiceId(),
+                        invoiceDTO.getIssueDateAndTime(),
+                        invoiceDTO.getSubTotal(),
+                        invoiceDTO.getVet(),
+                        invoiceDTO.getDiscount(),
+                        invoiceDTO.getTransportCost(),
+                        invoiceDTO.getTotal(),
+                        invoiceDTO.getPaid(),
+                        invoiceDTO.getDue(),
+                        invoiceDTO.getCreateBy(),
+                        invoiceDTO.getCreateDate()
+                       
+                    });
+                
+
+                invoicesTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
+                invoicesTable.getTableHeader().setOpaque(false);
+
+                //For jTable contant in center
+                DefaultTableCellRenderer stringRenderer = (DefaultTableCellRenderer) invoicesTable.getDefaultRenderer(String.class);
+                stringRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+                invoicesTable.setEnabled(false);
+                invoicesTable.setRowHeight(35);
+                invoicesTable.setModel(invoiceTableModel);
             }
         });
     }
