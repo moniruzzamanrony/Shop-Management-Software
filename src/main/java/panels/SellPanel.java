@@ -179,6 +179,7 @@ public class SellPanel extends javax.swing.JPanel {
         proQuantityEditText = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         productCodeEditText = new javax.swing.JTextField();
+        availableStockInText = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
         productNameEditText = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
@@ -628,6 +629,8 @@ public class SellPanel extends javax.swing.JPanel {
             }
         });
 
+        availableStockInText.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
+
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
@@ -640,9 +643,11 @@ public class SellPanel extends javax.swing.JPanel {
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel9))
                 .addGap(42, 42, 42)
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(proQuantityEditText, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
-                    .addComponent(productCodeEditText))
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(availableStockInText)
+                    .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(proQuantityEditText, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                        .addComponent(productCodeEditText)))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
@@ -658,7 +663,9 @@ public class SellPanel extends javax.swing.JPanel {
                         .addGap(4, 4, 4)
                         .addComponent(jLabel12))
                     .addComponent(proQuantityEditText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(availableStockInText)
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
         gridbody2.add(jPanel11);
@@ -894,9 +901,9 @@ public class SellPanel extends javax.swing.JPanel {
 
     private void addCardButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCardButActionPerformed
 
-        addDataInTable(new CardProductDTO(productNameEditText.getText(), proCatEditText.getText(),
-                productCodeEditText.getText().toString(), proQuantityEditText.getText(),
-                proRateEditText.getText(), Double.valueOf(proRateEditText.getText()) * Double.valueOf(proQuantityEditText.getText()),
+        addDataInTable(new CardProductDTO(productCodeEditText.getText(), productNameEditText.getText(),
+                proCatEditText.getText().toString(), proRateEditText.getText(),
+                proQuantityEditText.getText(), Double.valueOf(proRateEditText.getText()) * Double.valueOf(proQuantityEditText.getText()),
                 expiedDateEditText.getText(), productLocationEditText.getText()));
 
         reset();
@@ -918,6 +925,7 @@ public class SellPanel extends javax.swing.JPanel {
     private javax.swing.JButton addCardBut;
     private javax.swing.JButton addNewBut;
     private javax.swing.JButton addNewCustomerButton;
+    private javax.swing.JLabel availableStockInText;
     private javax.swing.JTextField customerAddressEditText;
     private javax.swing.JLabel customerIdTextView;
     private javax.swing.JTextField customerNameEditText;
@@ -989,7 +997,7 @@ public class SellPanel extends javax.swing.JPanel {
 
         cardProductDTOList.add(cardProduct);
 
-        DefaultTableModel mobileRechargeDetailsInMobileRechargePanel = new DefaultTableModel(new String[]{"Id", "Cetagory", "Product Name", "Price", "Qty", "Total Price", "Exp Date", "Product Location"}, 0);
+        DefaultTableModel mobileRechargeDetailsInMobileRechargePanel = new DefaultTableModel(new String[]{"Id", "Cetagory", "Product Name", "Qty", "Price", "Total Price", "Exp Date", "Product Location"}, 0);
 
         for (CardProductDTO cardProductDTO : cardProductDTOList) {
             mobileRechargeDetailsInMobileRechargePanel.addRow(new Object[]{
@@ -1053,9 +1061,9 @@ public class SellPanel extends javax.swing.JPanel {
 
     private void setAllProductDetails(InvoiceDetailsDTO invoiceDetailsDTO) {
         ProductCetagoryDTO productCetagoryDTO = cetagotyService.getByProductId(invoiceDetailsDTO.getProduct_id());
+        availableStockInText.setText(productCetagoryDTO.getStock()+" stock available");
         productNameEditText.setText(productCetagoryDTO.getName());
         proCatEditText.setText(productCetagoryDTO.getCetagoty());
-        proQuantityEditText.setText(productCetagoryDTO.getStock());
         proRateEditText.setText(String.valueOf(invoiceDetailsDTO.getPrice()));
         expiedDateEditText.setText(String.valueOf(invoiceDetailsDTO.getExpireDate()));
         productLocationEditText.setText(String.valueOf(invoiceDetailsDTO.getProductLocation()));

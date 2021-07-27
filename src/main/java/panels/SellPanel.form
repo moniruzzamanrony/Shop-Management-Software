@@ -740,9 +740,12 @@
                           <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="proQuantityEditText" pref="134" max="32767" attributes="0"/>
-                          <Component id="productCodeEditText" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="availableStockInText" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="proQuantityEditText" pref="134" max="32767" attributes="0"/>
+                              <Component id="productCodeEditText" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace pref="32" max="32767" attributes="0"/>
                   </Group>
@@ -764,7 +767,9 @@
                           </Group>
                           <Component id="proQuantityEditText" alignment="0" min="-2" pref="27" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="80" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="availableStockInText" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="74" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -795,6 +800,13 @@
               <Events>
                 <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="productCodeEditTextFocusLost"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="availableStockInText">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Ubuntu" size="12" style="1"/>
+                </Property>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
