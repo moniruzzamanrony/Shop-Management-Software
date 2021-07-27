@@ -7,6 +7,8 @@ package panels;
 
 import dto.CardProductDTO;
 import dto.InvoiceDTO;
+import dto.InvoiceDetailsDTO;
+import dto.ProductCetagoryDTO;
 import java.awt.Font;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -28,7 +30,7 @@ import services.SupplierService;
  */
 public class InvoicesReportPanel extends javax.swing.JPanel {
 
-    private ProductCetagotyService cetagotyService;
+    private ProductCetagotyService productCetagotyService;
     private InvoiceService invoiceService;
     private SupplierService supplierService;
     private Logger log = Logger.getLogger(InvoicesReportPanel.class.getName());
@@ -37,7 +39,7 @@ public class InvoicesReportPanel extends javax.swing.JPanel {
         initComponents();
 
         // Object Create
-        cetagotyService = new ProductCetagotyService();
+        productCetagotyService = new ProductCetagotyService();
         invoiceService = new InvoiceService();
         supplierService = new SupplierService();
 
@@ -65,7 +67,7 @@ public class InvoicesReportPanel extends javax.swing.JPanel {
         invoicesTable = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        productDetailsJTable = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -94,7 +96,7 @@ public class InvoicesReportPanel extends javax.swing.JPanel {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Product Details");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        productDetailsJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -105,7 +107,7 @@ public class InvoicesReportPanel extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(productDetailsJTable);
 
         jButton1.setBackground(new java.awt.Color(167, 37, 20));
         jButton1.setText("Delete");
@@ -293,7 +295,7 @@ public class InvoicesReportPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable productDetailsJTable;
     private javax.swing.JComboBox<String> shopOrCustomersComboBox;
     // End of variables declaration//GEN-END:variables
 
@@ -343,41 +345,78 @@ public class InvoicesReportPanel extends javax.swing.JPanel {
                 }
             }
 
-            private void showInvoiceInTableByInvoiceNO(String invoiceNo) {
-                log.info("Searching invoice List By " + invoiceNo + " for table show");
-                InvoiceDTO invoiceDTO = invoiceService.getInvoiceListByInvoiceNo(invoiceNo);
-                log.info("Getting Result " + invoiceDTO);
-
-                DefaultTableModel invoiceTableModel = new DefaultTableModel(new String[]{"Id", "Issue Date", "Sub Total",
-                    "Vat", "Discout","Transport Cost", "Total", "Paid", "Due", "Create By", "Create Time"}, 0);
-              
-                    invoiceTableModel.addRow(new Object[]{
-                        invoiceDTO.getInvoiceId(),
-                        invoiceDTO.getIssueDateAndTime(),
-                        invoiceDTO.getSubTotal(),
-                        invoiceDTO.getVet(),
-                        invoiceDTO.getDiscount(),
-                        invoiceDTO.getTransportCost(),
-                        invoiceDTO.getTotal(),
-                        invoiceDTO.getPaid(),
-                        invoiceDTO.getDue(),
-                        invoiceDTO.getCreateBy(),
-                        invoiceDTO.getCreateDate()
-                       
-                    });
-                
-
-                invoicesTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
-                invoicesTable.getTableHeader().setOpaque(false);
-
-                //For jTable contant in center
-                DefaultTableCellRenderer stringRenderer = (DefaultTableCellRenderer) invoicesTable.getDefaultRenderer(String.class);
-                stringRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-
-                invoicesTable.setEnabled(false);
-                invoicesTable.setRowHeight(35);
-                invoicesTable.setModel(invoiceTableModel);
-            }
         });
+    }
+
+    private void showInvoiceInTableByInvoiceNO(String invoiceNo) {
+        log.info("Searching invoice List By " + invoiceNo + " for table show");
+        InvoiceDTO invoiceDTO = invoiceService.getInvoiceListByInvoiceNo(invoiceNo);
+        log.info("Getting Result " + invoiceDTO);
+
+        DefaultTableModel invoiceTableModel = new DefaultTableModel(new String[]{"Id", "Issue Date", "Sub Total",
+            "Vat", "Discout", "Transport Cost", "Total", "Paid", "Due", "Create By", "Create Time"}, 0);
+
+        invoiceTableModel.addRow(new Object[]{
+            invoiceDTO.getInvoiceId(),
+            invoiceDTO.getIssueDateAndTime(),
+            invoiceDTO.getSubTotal(),
+            invoiceDTO.getVet(),
+            invoiceDTO.getDiscount(),
+            invoiceDTO.getTransportCost(),
+            invoiceDTO.getTotal(),
+            invoiceDTO.getPaid(),
+            invoiceDTO.getDue(),
+            invoiceDTO.getCreateBy(),
+            invoiceDTO.getCreateDate()
+
+        });
+
+        invoicesTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
+        invoicesTable.getTableHeader().setOpaque(false);
+
+        //For jTable contant in center
+        DefaultTableCellRenderer stringRenderer = (DefaultTableCellRenderer) invoicesTable.getDefaultRenderer(String.class);
+        stringRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        invoicesTable.setEnabled(false);
+        invoicesTable.setRowHeight(35);
+        invoicesTable.setModel(invoiceTableModel);
+
+        addProductsInJTableByInvoiceNi(invoiceNo);
+    }
+
+    private void addProductsInJTableByInvoiceNi(String invoiceNo) {
+        log.info("Getting products By invoice no=" + invoiceNo);
+        List<InvoiceDetailsDTO> invoiceDetailsDTOs = invoiceService.getProductsListByInvoice(invoiceNo);
+
+        DefaultTableModel invoiceTableModel = new DefaultTableModel(new String[]{"Id", "Cetagory", "Product Name", "Price", "Qty", "Total Price", "Exp Date", "Product Location"}, 0);
+
+        for (InvoiceDetailsDTO invoiceDetailsDTO : invoiceDetailsDTOs) {
+            ProductCetagoryDTO productCetagoryDTO = productCetagotyService.getByProductId(invoiceDetailsDTO.getProduct_id());
+
+            invoiceTableModel.addRow(new Object[]{
+                invoiceDetailsDTO.getId(),
+                productCetagoryDTO.getCetagoty(),
+                productCetagoryDTO.getName(),
+                invoiceDetailsDTO.getPrice(),
+                invoiceDetailsDTO.getQty(),
+                invoiceDetailsDTO.getTotalPrice(),
+                invoiceDetailsDTO.getExpireDate(),
+                invoiceDetailsDTO.getProductLocation()
+
+            });
+        }
+
+        productDetailsJTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
+        productDetailsJTable.getTableHeader().setOpaque(false);
+
+        //For jTable contant in center
+        DefaultTableCellRenderer stringRenderer = (DefaultTableCellRenderer) productDetailsJTable.getDefaultRenderer(String.class);
+        stringRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        productDetailsJTable.setEnabled(false);
+        productDetailsJTable.setRowHeight(35);
+        productDetailsJTable.setModel(invoiceTableModel);
+
     }
 }

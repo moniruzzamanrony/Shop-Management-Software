@@ -169,7 +169,6 @@ public class InvoiceService extends DbConnector {
                 try {
                     while (resultSet.next()) {
 
-                        
                         invoiceDTO.setInvoiceId(resultSet.getInt("invoice_no"));
                         invoiceDTO.setSupplierId(resultSet.getString("supplier_id"));
                         invoiceDTO.setSubTotal(Double.valueOf(resultSet.getInt("sub_total")));
@@ -184,8 +183,6 @@ public class InvoiceService extends DbConnector {
                         invoiceDTO.setIssueDateAndTime(resultSet.getString("issue_date_time"));
                         invoiceDTO.setInvoiceType(InvoiceType.valueOf(resultSet.getString("invoice_type")));
 
-                       
-
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(InvoiceService.class.getName()).log(Level.SEVERE, null, ex);
@@ -198,6 +195,46 @@ public class InvoiceService extends DbConnector {
             }
         });
         return invoiceDTO;
+    }
+
+    public List<InvoiceDetailsDTO> getProductsListByInvoice(String invoiceNo) {
+        log.info("Product List getting by invoice " + invoiceNo);
+        List<InvoiceDetailsDTO> invoiceDetailsDTOs = new ArrayList<>();
+
+        String query = "SELECT * FROM `invoice_details` WHERE `invoice_id`='"+ invoiceNo + "'";
+
+        getQueryExecutor(query, new ReturnMySqlResponse() {
+            @Override
+            public void onGetResponse(ResultSet resultSet) {
+                try {
+                    while (resultSet.next()) {
+
+                        invoiceDetailsDTOs.add(new InvoiceDetailsDTO(
+                                resultSet.getInt("id"),
+                                resultSet.getDouble("price"),
+                                resultSet.getInt("product_id"),
+                                resultSet.getInt("qty"),
+                                resultSet.getDouble("total"),
+                                resultSet.getString("expire_date"),
+                                resultSet.getString("product_location"),
+                                resultSet.getInt("sell_discount_in_perchance"),
+                                resultSet.getInt("invoice_id")
+                        ));
+
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(InvoiceService.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                AlertUtils.error(error);
+            }
+        });
+
+        log.info("Product List get from server " + invoiceDetailsDTOs);
+        return invoiceDetailsDTOs;
     }
 
 }

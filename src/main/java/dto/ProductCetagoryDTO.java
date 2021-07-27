@@ -50,6 +50,11 @@ public class ProductCetagoryDTO {
     public void setBrand(String brand) {
         this.brand = brand;
     }
+
+    @Override
+    public String toString() {
+        return "ProductCetagoryDTO{" + "id=" + id + ", name=" + name + ", cetagoty=" + cetagoty + ", brand=" + brand + '}';
+    }
     
     
 }

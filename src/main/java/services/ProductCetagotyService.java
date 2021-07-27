@@ -26,7 +26,8 @@ import utils.ApplicationUtils;
 public class ProductCetagotyService extends DbConnector {
 
     private boolean isSuccess = false;
-
+ private Logger log = Logger.getLogger(ProductCetagotyService.class.getName());
+ 
     public boolean addNewProductNameAndCetagory(
             String produectName,
             String productCetagory,
@@ -113,6 +114,36 @@ public class ProductCetagotyService extends DbConnector {
             }
         });
 
+        return productCetagoryDTO;
+    }
+    
+    public ProductCetagoryDTO getByProductId(int productId) {
+        log.info("Product details getting By product id ="+productId);
+        ProductCetagoryDTO productCetagoryDTO = new ProductCetagoryDTO();
+
+        String queryForProduct = "SELECT * FROM `products` WHERE `id` ='" + productId + "';";
+        getQueryExecutor(queryForProduct, new ReturnMySqlResponse() {
+            @Override
+            public void onGetResponse(ResultSet resultSet) {
+                try {
+                    while (resultSet.next()) {
+                        productCetagoryDTO.setId(resultSet.getInt("id"));
+                        productCetagoryDTO.setName(resultSet.getString("name"));
+                        productCetagoryDTO.setCetagoty(resultSet.getString("cetagory"));
+                        productCetagoryDTO.setBrand(resultSet.getString("brand"));
+                    }
+
+                } catch (SQLException ex) {
+                    AlertUtils.error(ex.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                AlertUtils.error(error);
+            }
+        });
+        log.info("Product details By product id from server "+ productCetagoryDTO);
         return productCetagoryDTO;
     }
 }

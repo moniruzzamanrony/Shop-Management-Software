@@ -20,7 +20,9 @@ public class InvoiceDetailsDTO {
     private int sellDiscount;
     private int invoiceId;
 
-    public InvoiceDetailsDTO(int id, double price, int product_id, int qty, double totalPrice, String expireDate, String productLocation, int sellDiscount, int invoiceId) {
+    public InvoiceDetailsDTO(int id, double price, int product_id, int qty, 
+            double totalPrice, String expireDate, String productLocation, 
+            int sellDiscount, int invoiceId) {
         this.id = id;
         this.price = price;
         this.product_id = product_id;
