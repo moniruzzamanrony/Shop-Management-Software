@@ -95,31 +95,29 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jLabel4" alignment="0" max="32767" attributes="0"/>
+              <Component id="jLabel4" alignment="0" pref="203" max="32767" attributes="0"/>
               <Component id="jSeparator3" alignment="0" max="32767" attributes="0"/>
               <Component id="subTotalEditText" alignment="0" max="32767" attributes="0"/>
               <Component id="vatEditText" alignment="0" max="32767" attributes="0"/>
-              <Component id="transportTextField" alignment="0" max="32767" attributes="0"/>
-              <Component id="discountTextField" alignment="0" max="32767" attributes="0"/>
+              <Component id="jSeparator4" alignment="0" max="32767" attributes="0"/>
               <Component id="grandTotalEditText" alignment="0" max="32767" attributes="0"/>
               <Component id="paidTextField" alignment="0" max="32767" attributes="0"/>
               <Component id="dueTextField" alignment="0" max="32767" attributes="0"/>
-              <Component id="jSeparator4" alignment="0" max="32767" attributes="0"/>
-              <Component id="productAddedCompleteBut" alignment="0" max="32767" attributes="0"/>
-              <Group type="102" alignment="0" attributes="0">
+              <Component id="saveBut" alignment="0" max="32767" attributes="0"/>
+              <Component id="saveAndPrintBut" alignment="0" max="32767" attributes="0"/>
+              <Component id="addNewBut1" alignment="0" max="32767" attributes="0"/>
+              <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel17" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel19" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel20" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
-              <Component id="addNewBut" alignment="0" max="32767" attributes="0"/>
-              <Component id="saveAndNewBut" alignment="0" max="32767" attributes="0"/>
+              <Component id="jRadioButton2" alignment="0" max="32767" attributes="0"/>
+              <Component id="jRadioButton1" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -137,14 +135,6 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="vatEditText" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="transportTextField" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="discountTextField" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="grandTotalEditText" min="-2" max="-2" attributes="0"/>
@@ -157,14 +147,18 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="dueTextField" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jSeparator4" min="-2" pref="10" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="productAddedCompleteBut" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="saveAndNewBut" min="-2" max="-2" attributes="0"/>
+                  <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="addNewBut" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Component id="jRadioButton2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                  <Component id="saveAndPrintBut" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="saveBut" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="addNewBut1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jSeparator4" min="-2" pref="10" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="88" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -211,40 +205,6 @@
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="vatEditTextKeyReleased"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel16">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Ubuntu" size="15" style="1"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Transport"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="transportTextField">
-          <Properties>
-            <Property name="horizontalAlignment" type="int" value="4"/>
-            <Property name="text" type="java.lang.String" value="0"/>
-          </Properties>
-          <Events>
-            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="transportTextFieldKeyReleased"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel17">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Ubuntu" size="15" style="1"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Discount(%)"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="discountTextField">
-          <Properties>
-            <Property name="horizontalAlignment" type="int" value="4"/>
-            <Property name="text" type="java.lang.String" value="0"/>
-          </Properties>
-          <Events>
-            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="discountTextFieldKeyReleased"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JTextField" name="grandTotalEditText">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="4"/>
@@ -289,26 +249,36 @@
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator4">
         </Component>
-        <Component class="javax.swing.JButton" name="productAddedCompleteBut">
+        <Component class="javax.swing.JButton" name="saveBut">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Product add completed"/>
+            <Property name="text" type="java.lang.String" value="Save"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="productAddedCompleteButActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveButActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="addNewBut">
+        <Component class="javax.swing.JButton" name="saveAndPrintBut">
           <Properties>
-            <Property name="text" type="java.lang.String" value="New"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="saveAndNewBut">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Save &amp; New"/>
+            <Property name="text" type="java.lang.String" value="Save &amp; Print"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveAndNewButActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveAndPrintButActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="addNewBut1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Cancle"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JRadioButton" name="jRadioButton1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Pos Memo"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JRadioButton" name="jRadioButton2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Regular Memo"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

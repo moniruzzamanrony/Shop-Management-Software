@@ -55,10 +55,10 @@ public class InvoiceService extends DbConnector {
         });
 
         for (InvoiceDetailsDTO invoice : invoiceDTO.getDetailsDTOs()) {
-            String invoiceDetails = "INSERT INTO `invoice_details`(`id`, `price`, `product_id`, `qty`, `total`, `expire_date`, `product_location`, `sell_discount_in_perchance`, `invoice_id`) "
+            String invoiceDetails = "INSERT INTO `invoice_details`(`id`, `price`, `product_id`, `qty`, `total`, `expire_date`, `product_location`, `sell_discount_in_perchance`, `invoice_id`,`action_type`) "
                     + "VALUES ('" + ApplicationUtils.getRandomInt() + "','" + invoice.getPrice() + "','" + invoice.getProduct_id() + "',"
                     + "'" + invoice.getQty() + "','" + invoice.getTotalPrice() + "','" + invoice.getExpireDate() + "',"
-                    + "'" + invoice.getProductLocation() + "','" + invoice.getSellDiscount() + "','" + invoiceDTO.getInvoiceId() + "')";
+                    + "'" + invoice.getProductLocation() + "','" + invoice.getSellDiscount() + "','" + invoiceDTO.getInvoiceId() + "','" + invoiceDTO.getInvoiceType() + "')";
             nonReturnQueryExecutor(invoiceDetails, new NonReturnMySqlResponse() {
 
                 @Override
@@ -73,23 +73,45 @@ public class InvoiceService extends DbConnector {
             });
 
         }
+        
+        if (invoiceDTO.getInvoiceType().toString().equals(String.valueOf(InvoiceType.PURCHASE))) {
+            
+            for (InvoiceDetailsDTO invoice : invoiceDTO.getDetailsDTOs()) {
+                String invoiceDetails = "UPDATE product_cetagory SET stock = stock + " + invoice.getQty() + " WHERE id =" + invoice.getProduct_id();
+                log.info("Query:" + invoiceDetails);
+                nonReturnQueryExecutor(invoiceDetails, new NonReturnMySqlResponse() {
 
-        for (InvoiceDetailsDTO invoice : invoiceDTO.getDetailsDTOs()) {
-            String invoiceDetails = "UPDATE product_cetagory SET stock = stock + " + invoice.getQty() + " WHERE id =" + invoice.getProduct_id();
-            log.info("Query:" + invoiceDetails);
-            nonReturnQueryExecutor(invoiceDetails, new NonReturnMySqlResponse() {
+                    @Override
+                    public void onUpdateAndDeleteResponse(int result) {
+                        isSave = true;
+                    }
 
-                @Override
-                public void onUpdateAndDeleteResponse(int result) {
-                    isSave = true;
-                }
+                    @Override
+                    public void onError(String error) {
+                        AlertUtils.error(error);
+                    }
+                });
 
-                @Override
-                public void onError(String error) {
-                    AlertUtils.error(error);
-                }
-            });
+            }
+        }
+        if (invoiceDTO.getInvoiceType().toString().equals(String.valueOf(InvoiceType.SELL))) {
+            for (InvoiceDetailsDTO invoice : invoiceDTO.getDetailsDTOs()) {
+                String invoiceDetails = "UPDATE product_cetagory SET stock = stock - " + invoice.getQty() + " WHERE id =" + invoice.getProduct_id();
+                log.info("Query:" + invoiceDetails);
+                nonReturnQueryExecutor(invoiceDetails, new NonReturnMySqlResponse() {
 
+                    @Override
+                    public void onUpdateAndDeleteResponse(int result) {
+                        isSave = true;
+                    }
+
+                    @Override
+                    public void onError(String error) {
+                        AlertUtils.error(error);
+                    }
+                });
+
+            }
         }
         return isSave;
     }
@@ -118,7 +140,6 @@ public class InvoiceService extends DbConnector {
                         invoiceDTO.setCreateDate(resultSet.getString("creation_date_time"));
                         invoiceDTO.setIssueDateAndTime(resultSet.getString("issue_date_time"));
                         invoiceDTO.setInvoiceType(InvoiceType.valueOf(resultSet.getString("invoice_type")));
-
                         invoiceDTOs.add(invoiceDTO);
 
                     }
@@ -256,10 +277,10 @@ public class InvoiceService extends DbConnector {
         return invoiceDetailsDTOs;
     }
 
-    public InvoiceDetailsDTO getProductById(String id) {
-        
+    public InvoiceDetailsDTO getProductByIdFromPurchase(String id) {
+
         log.info("Product List getting by details id " + id);
-        String query = "SELECT * FROM `invoice_details` WHERE `id`='" + id + "'";
+        String query = "SELECT * FROM `invoice_details` WHERE `id`='" + id + "' AND `action_type`='PURCHASE'";
 
         getQueryExecutor(query, new ReturnMySqlResponse() {
             @Override

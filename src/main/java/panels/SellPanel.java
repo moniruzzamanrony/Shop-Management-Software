@@ -109,7 +109,6 @@ public class SellPanel extends javax.swing.JPanel {
         subTotalEditText.setEditable(false);
         grandTotalEditText.setEditable(false);
         dueTextField.setEditable(false);
-        disableDefault(false);
         invoiceNoEditText.setText(String.valueOf(INVOICE_NO));
         employeeNameEditText.setEditable(false);
         employeeNameEditText.setText(LoggedUserInfo.getName());
@@ -133,10 +132,6 @@ public class SellPanel extends javax.swing.JPanel {
         subTotalEditText = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         vatEditText = new javax.swing.JTextField();
-        jLabel16 = new javax.swing.JLabel();
-        transportTextField = new javax.swing.JTextField();
-        jLabel17 = new javax.swing.JLabel();
-        discountTextField = new javax.swing.JTextField();
         grandTotalEditText = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         paidTextField = new javax.swing.JTextField();
@@ -144,9 +139,11 @@ public class SellPanel extends javax.swing.JPanel {
         dueTextField = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
-        productAddedCompleteBut = new javax.swing.JButton();
-        addNewBut = new javax.swing.JButton();
-        saveAndNewBut = new javax.swing.JButton();
+        saveBut = new javax.swing.JButton();
+        saveAndPrintBut = new javax.swing.JButton();
+        addNewBut1 = new javax.swing.JButton();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         productsjTable = new javax.swing.JTable();
@@ -233,28 +230,6 @@ public class SellPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel16.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        jLabel16.setText("Transport");
-
-        transportTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        transportTextField.setText("0");
-        transportTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                transportTextFieldKeyReleased(evt);
-            }
-        });
-
-        jLabel17.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        jLabel17.setText("Discount(%)");
-
-        discountTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        discountTextField.setText("0");
-        discountTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                discountTextFieldKeyReleased(evt);
-            }
-        });
-
         grandTotalEditText.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         jLabel18.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
@@ -275,49 +250,51 @@ public class SellPanel extends javax.swing.JPanel {
         jLabel20.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel20.setText("Due");
 
-        productAddedCompleteBut.setText("Product add completed");
-        productAddedCompleteBut.addActionListener(new java.awt.event.ActionListener() {
+        saveBut.setText("Save");
+        saveBut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                productAddedCompleteButActionPerformed(evt);
+                saveButActionPerformed(evt);
             }
         });
 
-        addNewBut.setText("New");
-
-        saveAndNewBut.setText("Save & New");
-        saveAndNewBut.addActionListener(new java.awt.event.ActionListener() {
+        saveAndPrintBut.setText("Save & Print");
+        saveAndPrintBut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveAndNewButActionPerformed(evt);
+                saveAndPrintButActionPerformed(evt);
             }
         });
+
+        addNewBut1.setText("Cancle");
+
+        jRadioButton1.setText("Pos Memo");
+
+        jRadioButton2.setText("Regular Memo");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
             .addComponent(jSeparator3)
             .addComponent(subTotalEditText)
             .addComponent(vatEditText)
-            .addComponent(transportTextField)
-            .addComponent(discountTextField)
+            .addComponent(jSeparator4)
             .addComponent(grandTotalEditText)
             .addComponent(paidTextField)
             .addComponent(dueTextField)
-            .addComponent(jSeparator4)
-            .addComponent(productAddedCompleteBut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(saveBut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(saveAndPrintBut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(addNewBut1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel14)
                     .addComponent(jLabel15)
-                    .addComponent(jLabel16)
-                    .addComponent(jLabel17)
                     .addComponent(jLabel18)
                     .addComponent(jLabel19)
                     .addComponent(jLabel20))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(addNewBut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(saveAndNewBut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jRadioButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jRadioButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -334,14 +311,6 @@ public class SellPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(vatEditText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel16)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(transportTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel17)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(discountTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel18)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(grandTotalEditText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -354,14 +323,18 @@ public class SellPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dueTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(productAddedCompleteBut)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(saveAndNewBut)
+                .addComponent(jRadioButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(addNewBut)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jRadioButton2)
+                .addGap(4, 4, 4)
+                .addComponent(saveAndPrintBut)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(saveBut)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(addNewBut1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 88, Short.MAX_VALUE))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -830,52 +803,13 @@ public class SellPanel extends javax.swing.JPanel {
         System.err.println(vatEditText.getText());
     }//GEN-LAST:event_vatEditTextKeyReleased
 
-    private void transportTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_transportTextFieldKeyReleased
-        grandTotalEditText.setText(String.valueOf(Double.valueOf(grandTotalEditText.getText()) + Double.valueOf(transportTextField.getText())));
-    }//GEN-LAST:event_transportTextFieldKeyReleased
-
-    private void discountTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_discountTextFieldKeyReleased
-        double cal = (Double.valueOf(subTotalEditText.getText()) * Double.valueOf(discountTextField.getText())) / 100;
-
-        grandTotalEditText.setText(String.valueOf(Double.valueOf(subTotalEditText.getText()) - cal));
-    }//GEN-LAST:event_discountTextFieldKeyReleased
-
     private void paidTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_paidTextFieldKeyReleased
         dueTextField.setText(String.valueOf(Double.valueOf(grandTotalEditText.getText()) - Double.valueOf(paidTextField.getText())));
     }//GEN-LAST:event_paidTextFieldKeyReleased
 
-    private void productAddedCompleteButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productAddedCompleteButActionPerformed
-        productAddedCompleteBut.setVisible(false);
-        disableDefault(true);
-    }//GEN-LAST:event_productAddedCompleteButActionPerformed
-
-    private void saveAndNewButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAndNewButActionPerformed
-        InvoiceDTO invoiceDTO = new InvoiceDTO();
-        invoiceDTO.setInvoiceId(INVOICE_NO);
-        invoiceDTO.setSupplierId(customerAddressEditText.getText());
-        invoiceDTO.setSubTotal(Double.valueOf(subTotalEditText.getText()));
-        invoiceDTO.setVet(Integer.valueOf(vatEditText.getText()));
-        invoiceDTO.setTransportCost(Double.valueOf(transportTextField.getText()));
-        invoiceDTO.setDiscount(Integer.valueOf(discountTextField.getText()));
-        invoiceDTO.setTotal(Double.valueOf(grandTotalEditText.getText()));
-        invoiceDTO.setPaid(Double.valueOf(paidTextField.getText()));
-        invoiceDTO.setDue(Double.valueOf(dueTextField.getText()));
-        invoiceDTO.setCreateBy(employeeNameEditText.getText());
-        invoiceDTO.setCreateDate(ApplicationUtils.getCurrentDateAndTime());
-        invoiceDTO.setIssueDateAndTime(issueDateEditText.getText());
-        invoiceDTO.setInvoiceType(InvoiceType.SELL);
-
-        List<InvoiceDetailsDTO> invoiceDetailsDTOs = cardProductDTOList.stream().map(card
-                -> new InvoiceDetailsDTO(ApplicationUtils.getRandomInt(), Double.valueOf(card.getPrice()),
-                        Integer.valueOf(productNameEditText.getText()),
-                        Integer.valueOf(card.getQty()), Double.valueOf(card.getTotalPrice()),
-                        card.getExpDate(), card.getProductLocation(),
-                        Integer.valueOf(discountTextField.getText()), INVOICE_NO)
-        ).collect(Collectors.toList());
-        invoiceDTO.setDetailsDTOs(invoiceDetailsDTOs);
-
-        saveInvoice(invoiceDTO);
-    }//GEN-LAST:event_saveAndNewButActionPerformed
+    private void saveAndPrintButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAndPrintButActionPerformed
+        saveDtoMaker();
+    }//GEN-LAST:event_saveAndPrintButActionPerformed
 
     private void customerAddressEditTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerAddressEditTextActionPerformed
         // TODO add your handling code here:
@@ -915,22 +849,25 @@ public class SellPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_productLocationEditTextActionPerformed
 
     private void productCodeEditTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_productCodeEditTextFocusLost
-        InvoiceDetailsDTO invoiceDetailsDTO = invoiceService.getProductById(productCodeEditText.getText());
+        InvoiceDetailsDTO invoiceDetailsDTO = invoiceService.getProductByIdFromPurchase(productCodeEditText.getText());
         setAllProductDetails(invoiceDetailsDTO);
 
     }//GEN-LAST:event_productCodeEditTextFocusLost
 
+    private void saveButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButActionPerformed
+       saveDtoMaker();
+    }//GEN-LAST:event_saveButActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addCardBut;
-    private javax.swing.JButton addNewBut;
+    private javax.swing.JButton addNewBut1;
     private javax.swing.JButton addNewCustomerButton;
     private javax.swing.JLabel availableStockInText;
     private javax.swing.JTextField customerAddressEditText;
     private javax.swing.JLabel customerIdTextView;
     private javax.swing.JTextField customerNameEditText;
     private javax.swing.JComboBox<String> customerPhoneNoComboBox;
-    private javax.swing.JTextField discountTextField;
     private javax.swing.JTextField dueTextField;
     private javax.swing.JTextField employeeNameEditText;
     private javax.swing.JTextField expiedDateEditText;
@@ -947,8 +884,6 @@ public class SellPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
@@ -975,6 +910,8 @@ public class SellPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -982,14 +919,13 @@ public class SellPanel extends javax.swing.JPanel {
     private javax.swing.JTextField proCatEditText;
     private javax.swing.JTextField proQuantityEditText;
     private javax.swing.JTextField proRateEditText;
-    private javax.swing.JButton productAddedCompleteBut;
     private javax.swing.JTextField productCodeEditText;
     private javax.swing.JTextField productLocationEditText;
     private javax.swing.JTextField productNameEditText;
     private javax.swing.JTable productsjTable;
-    private javax.swing.JButton saveAndNewBut;
+    private javax.swing.JButton saveAndPrintBut;
+    private javax.swing.JButton saveBut;
     private javax.swing.JTextField subTotalEditText;
-    private javax.swing.JTextField transportTextField;
     private javax.swing.JTextField vatEditText;
     // End of variables declaration//GEN-END:variables
 
@@ -1044,11 +980,10 @@ public class SellPanel extends javax.swing.JPanel {
 
     private void disableDefault(boolean isDisable) {
         vatEditText.setEditable(isDisable);
-        transportTextField.setEditable(isDisable);
         paidTextField.setEditable(isDisable);
-        addNewBut.setVisible(isDisable);
+        saveBut.setVisible(isDisable);
         addCardBut.setVisible(!isDisable);
-        saveAndNewBut.setVisible(isDisable);
+        saveAndPrintBut.setVisible(isDisable);
     }
 
     private void saveInvoice(InvoiceDTO invoiceDTO) {
@@ -1061,11 +996,39 @@ public class SellPanel extends javax.swing.JPanel {
 
     private void setAllProductDetails(InvoiceDetailsDTO invoiceDetailsDTO) {
         ProductCetagoryDTO productCetagoryDTO = cetagotyService.getByProductId(invoiceDetailsDTO.getProduct_id());
-        availableStockInText.setText(productCetagoryDTO.getStock()+" stock available");
+        availableStockInText.setText(productCetagoryDTO.getStock() + " stock available");
         productNameEditText.setText(productCetagoryDTO.getName());
         proCatEditText.setText(productCetagoryDTO.getCetagoty());
         proRateEditText.setText(String.valueOf(invoiceDetailsDTO.getPrice()));
         expiedDateEditText.setText(String.valueOf(invoiceDetailsDTO.getExpireDate()));
         productLocationEditText.setText(String.valueOf(invoiceDetailsDTO.getProductLocation()));
+    }
+
+    private void saveDtoMaker() {
+        InvoiceDTO invoiceDTO = new InvoiceDTO();
+        invoiceDTO.setInvoiceId(INVOICE_NO);
+        invoiceDTO.setSupplierId(customerIdTextView.getText());
+        invoiceDTO.setSubTotal(Double.valueOf(subTotalEditText.getText()));
+        invoiceDTO.setVet(Integer.valueOf(vatEditText.getText()));
+        invoiceDTO.setTransportCost(Double.valueOf("00"));
+        invoiceDTO.setDiscount(Integer.valueOf(00));
+        invoiceDTO.setTotal(Double.valueOf(grandTotalEditText.getText()));
+        invoiceDTO.setPaid(Double.valueOf(paidTextField.getText()));
+        invoiceDTO.setDue(Double.valueOf(dueTextField.getText()));
+        invoiceDTO.setCreateBy(employeeNameEditText.getText());
+        invoiceDTO.setCreateDate(ApplicationUtils.getCurrentDateAndTime());
+        invoiceDTO.setIssueDateAndTime(issueDateEditText.getText());
+        invoiceDTO.setInvoiceType(InvoiceType.SELL);
+
+        List<InvoiceDetailsDTO> invoiceDetailsDTOs = cardProductDTOList.stream().map(card
+                -> new InvoiceDetailsDTO(ApplicationUtils.getRandomInt(), Double.valueOf(card.getPrice()),
+                        Integer.valueOf(cetagotyService.getByName(card.getName()).getId()),
+                        Integer.valueOf(card.getQty()), Double.valueOf(card.getTotalPrice()),
+                        card.getExpDate(), card.getProductLocation(),
+                        Integer.valueOf(00), INVOICE_NO)
+        ).collect(Collectors.toList());
+        invoiceDTO.setDetailsDTOs(invoiceDetailsDTOs);
+
+        saveInvoice(invoiceDTO);
     }
 }
