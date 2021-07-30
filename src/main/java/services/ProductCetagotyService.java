@@ -84,6 +84,39 @@ public class ProductCetagotyService extends DbConnector {
 
         return productCetagoryDTOs;
     }
+    
+        public List<ProductCetagoryDTO> getAllUbderByStock(int number) {
+
+        List<ProductCetagoryDTO> productCetagoryDTOs = new ArrayList<ProductCetagoryDTO>();
+
+        String queryForProduct = "SELECT * FROM `product_cetagory` WHERE `stock`<= "+number+";";
+        getQueryExecutor(queryForProduct, new ReturnMySqlResponse() {
+            @Override
+            public void onGetResponse(ResultSet resultSet) {
+                try {
+                    while (resultSet.next()) {
+                        ProductCetagoryDTO productCetagoryDTO = new ProductCetagoryDTO();
+                        productCetagoryDTO.setId(resultSet.getInt("id"));
+                        productCetagoryDTO.setName(resultSet.getString("name"));
+                        productCetagoryDTO.setCetagoty(resultSet.getString("cetagory"));
+                        productCetagoryDTO.setBrand(resultSet.getString("brand"));
+                        productCetagoryDTO.setStock(resultSet.getString("stock"));
+                        productCetagoryDTOs.add(productCetagoryDTO);
+
+                    }
+                } catch (SQLException ex) {
+                    AlertUtils.error(ex.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                AlertUtils.error(error);
+            }
+        });
+
+        return productCetagoryDTOs;
+    }
 
     public ProductCetagoryDTO getByName(String name) {
 

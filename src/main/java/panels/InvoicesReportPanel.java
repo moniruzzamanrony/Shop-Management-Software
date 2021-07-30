@@ -9,17 +9,21 @@ import dto.CardProductDTO;
 import dto.InvoiceDTO;
 import dto.InvoiceDetailsDTO;
 import dto.ProductCetagoryDTO;
+import dto.SupplierDTO;
+import enums.InvoiceType;
 import java.awt.Font;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import org.apache.log4j.spi.LoggerFactory;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
+import services.CustomerService;
 import services.ProductCetagotyService;
 import services.InvoiceService;
 import services.SupplierService;
@@ -33,6 +37,7 @@ public class InvoicesReportPanel extends javax.swing.JPanel {
     private ProductCetagotyService productCetagotyService;
     private InvoiceService invoiceService;
     private SupplierService supplierService;
+    private CustomerService customerService;
     private Logger log = Logger.getLogger(InvoicesReportPanel.class.getName());
 
     public InvoicesReportPanel() {
@@ -42,6 +47,7 @@ public class InvoicesReportPanel extends javax.swing.JPanel {
         productCetagotyService = new ProductCetagotyService();
         invoiceService = new InvoiceService();
         supplierService = new SupplierService();
+        customerService = new CustomerService();
 
         // Default Config
         AutoCompleteDecorator.decorate(shopOrCustomersComboBox);
@@ -304,23 +310,33 @@ public class InvoicesReportPanel extends javax.swing.JPanel {
         shopOrCustomersComboBox.addItem("Select");
         if (isPurchase.isSelected()) {
             log.info("Purchase Selected");
-            invoiceService.getInvoiceList().forEach(invoice
-                    -> shopOrCustomersComboBox.addItem(supplierService.getSupplierDetaisById(invoice.getSupplierId()).getName()));
+            invoiceService.getInvoiceList()
+                    .stream().filter(res -> res.getInvoiceType().PURCHASE == InvoiceType.PURCHASE).collect(Collectors.toSet())
+                    .forEach(invoice
+                            -> shopOrCustomersComboBox.addItem(supplierService.getSupplierDetaisById(invoice.getSupplierId()).getPhoneNo()));
+
         }
         if (isSell.isSelected()) {
             log.info("Sell Selected");
             //TODO: Sell logic implement here
-            invoiceService.getInvoiceList().forEach(invoice -> shopOrCustomersComboBox.addItem(String.valueOf(invoice.getInvoiceId())));
+            invoiceService.getInvoiceList()
+                    .stream().filter(res -> res.getInvoiceType().SELL == InvoiceType.SELL).collect(Collectors.toSet())
+                    .forEach(invoice -> shopOrCustomersComboBox.addItem(customerService.getCustomerDetaisById(invoice.getSupplierId()).getPhoneNo()));
         }
 
         shopOrCustomersComboBox.addItemListener(new ItemListener() {
 
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
-                    String name = shopOrCustomersComboBox.getSelectedItem().toString();
+                    String phoneNo = shopOrCustomersComboBox.getSelectedItem().toString();
 
-                    log.info("Customer Name: " + name);
-                    addInvoiceNoInCombox(supplierService.getByName(name).getId());
+                    log.info("Customer Name: " + supplierService.getByName(phoneNo).getId());
+                    SupplierDTO supplierDTO = supplierService.getSupplierByPhoneNo(phoneNo);
+                    if (supplierDTO.getId() == 0) {
+                        addInvoiceNoInCombox(customerService.getCustomerByPhoneNo(phoneNo).getId());
+                    } else {
+                        addInvoiceNoInCombox(supplierDTO.getId());
+                    }
 
                 }
             }

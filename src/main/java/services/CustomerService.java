@@ -127,4 +127,40 @@ public class CustomerService extends DbConnector {
         return customerDTO;
     }
 
+    public CustomerDTO getCustomerDetaisById(String id) {
+
+        log.info("Getting Customer Info By Id:" + id);
+
+        CustomerDTO customerDTO = new CustomerDTO();
+        String query = "SELECT * FROM `customers` WHERE `id` ='" + id + "';";
+
+        getQueryExecutor(query, new ReturnMySqlResponse() {
+            @Override
+            public void onGetResponse(ResultSet resultSet) {
+                try {
+                    while (resultSet.next()) {
+
+                        customerDTO.setId(resultSet.getInt("id"));
+                        customerDTO.setName(resultSet.getString("name"));
+                        customerDTO.setPhoneNo(resultSet.getString("phone_no"));
+                        customerDTO.setEmail(resultSet.getString("email"));
+                        customerDTO.setAddress(resultSet.getString("address"));
+                        customerDTO.setIsActive(resultSet.getBoolean("is_active"));
+                    }
+                } catch (SQLException ex) {
+                    AlertUtils.error(ex.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                AlertUtils.error(error);
+            }
+
+        });
+
+        log.info("Getting Customer Info from Serve" + customerDTO);
+        return customerDTO;
+    }
+
 }

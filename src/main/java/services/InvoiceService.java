@@ -73,9 +73,9 @@ public class InvoiceService extends DbConnector {
             });
 
         }
-        
+
         if (invoiceDTO.getInvoiceType().toString().equals(String.valueOf(InvoiceType.PURCHASE))) {
-            
+
             for (InvoiceDetailsDTO invoice : invoiceDTO.getDetailsDTOs()) {
                 String invoiceDetails = "UPDATE product_cetagory SET stock = stock + " + invoice.getQty() + " WHERE id =" + invoice.getProduct_id();
                 log.info("Query:" + invoiceDetails);
@@ -242,6 +242,86 @@ public class InvoiceService extends DbConnector {
         List<InvoiceDetailsDTO> invoiceDetailsDTOs = new ArrayList<>();
 
         String query = "SELECT * FROM `invoice_details` WHERE `invoice_id`='" + invoiceNo + "'";
+
+        getQueryExecutor(query, new ReturnMySqlResponse() {
+            @Override
+            public void onGetResponse(ResultSet resultSet) {
+                try {
+                    while (resultSet.next()) {
+
+                        invoiceDetailsDTOs.add(new InvoiceDetailsDTO(
+                                resultSet.getInt("id"),
+                                resultSet.getDouble("price"),
+                                resultSet.getInt("product_id"),
+                                resultSet.getInt("qty"),
+                                resultSet.getDouble("total"),
+                                resultSet.getString("expire_date"),
+                                resultSet.getString("product_location"),
+                                resultSet.getInt("sell_discount_in_perchance"),
+                                resultSet.getInt("invoice_id")
+                        ));
+
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(InvoiceService.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                AlertUtils.error(error);
+            }
+        });
+
+        log.info("Product List get from server " + invoiceDetailsDTOs);
+        return invoiceDetailsDTOs;
+    }
+
+    public List<InvoiceDetailsDTO> getTodayExpiredProductsList(String date) {
+        log.info("Product List getting by date: " + date);
+        List<InvoiceDetailsDTO> invoiceDetailsDTOs = new ArrayList<>();
+
+        String query = "SELECT * FROM `invoice_details` WHERE `expire_date`='" + date + "'";
+
+        getQueryExecutor(query, new ReturnMySqlResponse() {
+            @Override
+            public void onGetResponse(ResultSet resultSet) {
+                try {
+                    while (resultSet.next()) {
+
+                        invoiceDetailsDTOs.add(new InvoiceDetailsDTO(
+                                resultSet.getInt("id"),
+                                resultSet.getDouble("price"),
+                                resultSet.getInt("product_id"),
+                                resultSet.getInt("qty"),
+                                resultSet.getDouble("total"),
+                                resultSet.getString("expire_date"),
+                                resultSet.getString("product_location"),
+                                resultSet.getInt("sell_discount_in_perchance"),
+                                resultSet.getInt("invoice_id")
+                        ));
+
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(InvoiceService.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                AlertUtils.error(error);
+            }
+        });
+
+        log.info("Product List get from server " + invoiceDetailsDTOs);
+        return invoiceDetailsDTOs;
+    }
+    
+    public List<InvoiceDetailsDTO> getAllProductDetails() {
+        log.info("Product List getting");
+        List<InvoiceDetailsDTO> invoiceDetailsDTOs = new ArrayList<>();
+
+        String query = "SELECT * FROM `invoice_details`";
 
         getQueryExecutor(query, new ReturnMySqlResponse() {
             @Override

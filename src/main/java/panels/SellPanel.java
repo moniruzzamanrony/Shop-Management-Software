@@ -24,6 +24,7 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import dto.ProductCetagoryDTO;
 import dto.ProductDTO;
 import frames.AddNewCustomer;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import services.CustomerService;
 import services.ProductCetagotyService;
@@ -45,6 +46,7 @@ public class SellPanel extends javax.swing.JPanel {
     private InvoiceService invoiceService;
 
     private final int INVOICE_NO = ApplicationUtils.getRandomInvoiceNo();
+    private Logger log = Logger.getLogger(SellPanel.class.getName());
 
     public SellPanel() {
         initComponents();
@@ -79,32 +81,6 @@ public class SellPanel extends javax.swing.JPanel {
             }
         });
 
-//        //Add Product Name in Combobox
-//        productIdComboBox.removeAllItems();
-//        productIdComboBox.addItem("Select");
-//        cetagotyService.getAll().forEach(cetagory -> productIdComboBox.addItem(cetagory.getName()));
-//
-//        productIdComboBox.addItemListener(new ItemListener() {
-//
-//            public void itemStateChanged(ItemEvent e) {
-//
-//                System.err.println(productIdComboBox.getSelectedItem().toString());
-//                if (e.getStateChange() == ItemEvent.SELECTED) {
-//                    
-//                    String name = productIdComboBox.getSelectedItem().toString();
-//                    ProductCetagoryDTO cetagoryDTO = cetagotyService.getByName(name);
-//                    proCatEditText.setText(cetagoryDTO.getCetagoty());
-//                    proIdEditText.setText(String.valueOf(cetagoryDTO.getId()));
-//
-//                    ProductDTO productDTO = productsService.getProductById(String.valueOf(cetagoryDTO.getId()));
-//                    proRateEditText.setText(String.valueOf(productDTO.getPrice()));
-//                    expiedDateEditText.setText(productDTO.getExpireDate());
-//                    productLocationEditText.setText(productDTO.getProductLocation());
-//
-//
-//                }
-//            }
-//        });
         //Disable Default
         subTotalEditText.setEditable(false);
         grandTotalEditText.setEditable(false);
@@ -142,8 +118,8 @@ public class SellPanel extends javax.swing.JPanel {
         saveBut = new javax.swing.JButton();
         saveAndPrintBut = new javax.swing.JButton();
         addNewBut1 = new javax.swing.JButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        posRadioButton = new javax.swing.JRadioButton();
+        regularRadioButton = new javax.swing.JRadioButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         productsjTable = new javax.swing.JTable();
@@ -266,9 +242,9 @@ public class SellPanel extends javax.swing.JPanel {
 
         addNewBut1.setText("Cancle");
 
-        jRadioButton1.setText("Pos Memo");
+        posRadioButton.setText("Pos Memo");
 
-        jRadioButton2.setText("Regular Memo");
+        regularRadioButton.setText("Regular Memo");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -293,8 +269,8 @@ public class SellPanel extends javax.swing.JPanel {
                     .addComponent(jLabel19)
                     .addComponent(jLabel20))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(jRadioButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jRadioButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(regularRadioButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(posRadioButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -323,9 +299,9 @@ public class SellPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dueTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton1)
+                .addComponent(posRadioButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton2)
+                .addComponent(regularRadioButton)
                 .addGap(4, 4, 4)
                 .addComponent(saveAndPrintBut)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -855,7 +831,7 @@ public class SellPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_productCodeEditTextFocusLost
 
     private void saveButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButActionPerformed
-       saveDtoMaker();
+        saveDtoMaker();
     }//GEN-LAST:event_saveButActionPerformed
 
 
@@ -910,12 +886,11 @@ public class SellPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTextField paidTextField;
+    private javax.swing.JRadioButton posRadioButton;
     private javax.swing.JTextField proCatEditText;
     private javax.swing.JTextField proQuantityEditText;
     private javax.swing.JTextField proRateEditText;
@@ -923,6 +898,7 @@ public class SellPanel extends javax.swing.JPanel {
     private javax.swing.JTextField productLocationEditText;
     private javax.swing.JTextField productNameEditText;
     private javax.swing.JTable productsjTable;
+    private javax.swing.JRadioButton regularRadioButton;
     private javax.swing.JButton saveAndPrintBut;
     private javax.swing.JButton saveBut;
     private javax.swing.JTextField subTotalEditText;
@@ -1030,5 +1006,15 @@ public class SellPanel extends javax.swing.JPanel {
         invoiceDTO.setDetailsDTOs(invoiceDetailsDTOs);
 
         saveInvoice(invoiceDTO);
+
+        print();
+    }
+
+    private void print() {
+        boolean isPos = posRadioButton.isSelected();
+        boolean isRegular = regularRadioButton.isSelected();
+
+        log.info("isPos:"+ isPos);
+        log.info("isRegular:"+ isRegular);
     }
 }

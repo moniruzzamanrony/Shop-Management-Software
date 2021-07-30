@@ -116,8 +116,8 @@
                   </Group>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
-              <Component id="jRadioButton2" alignment="0" max="32767" attributes="0"/>
-              <Component id="jRadioButton1" alignment="0" max="32767" attributes="0"/>
+              <Component id="regularRadioButton" alignment="0" max="32767" attributes="0"/>
+              <Component id="posRadioButton" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -147,9 +147,9 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="dueTextField" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
+                  <Component id="posRadioButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jRadioButton2" min="-2" max="-2" attributes="0"/>
+                  <Component id="regularRadioButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                   <Component id="saveAndPrintBut" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -270,12 +270,12 @@
             <Property name="text" type="java.lang.String" value="Cancle"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="jRadioButton1">
+        <Component class="javax.swing.JRadioButton" name="posRadioButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Pos Memo"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="jRadioButton2">
+        <Component class="javax.swing.JRadioButton" name="regularRadioButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Regular Memo"/>
           </Properties>

@@ -169,4 +169,42 @@ public class SupplierService extends DbConnector {
 
         return supplierDTO;
     }
+     
+      public SupplierDTO getSupplierByPhoneNo(String phoneNo) {
+       SupplierDTO supplierDTO = new SupplierDTO();
+
+        String query = "SELECT * FROM `suppliers` WHERE `phone_no` ='" + phoneNo + "';";
+        getQueryExecutor(query, new ReturnMySqlResponse() {
+
+            @Override
+            public void onGetResponse(ResultSet resultSet) {
+                try {
+                    while (resultSet.next()) {
+                        
+                        supplierDTO.setId(resultSet.getInt("id"));
+                        supplierDTO.setName(resultSet.getString("name"));
+                        supplierDTO.setPhoneNo(resultSet.getString("phone_no"));
+                        supplierDTO.setEmail(resultSet.getString("email"));
+                        supplierDTO.setCompanyName(resultSet.getString("company_name"));
+                        supplierDTO.setBankName(resultSet.getString("bank_name"));
+                        supplierDTO.setBankAcNo(resultSet.getString("bank__ac_no"));
+                        supplierDTO.setAddress(resultSet.getString("address"));
+                        supplierDTO.setIsActive(resultSet.getBoolean("is_active"));
+
+                      
+
+                    }
+                } catch (SQLException ex) {
+                    AlertUtils.error(ex.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                AlertUtils.error(error);
+            }
+        });
+
+        return supplierDTO;
+    }
 }
