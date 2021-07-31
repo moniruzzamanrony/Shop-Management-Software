@@ -46,6 +46,9 @@ public class MyProductsPanel extends javax.swing.JPanel {
         cetagotyService = new ProductCetagotyService();
         invoiceService = new InvoiceService();
         productsService = new ProductsService();
+        
+        //Default
+         getAllProductsList();
     }
 
     /**
