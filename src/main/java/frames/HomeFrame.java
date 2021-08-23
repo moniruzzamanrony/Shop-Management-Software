@@ -6,6 +6,7 @@
 package frames;
 
 import javax.swing.JPanel;
+import panels.DeshboardPanel;
 import panels.MyProductsPanel;
 import panels.InvoicesReportPanel;
 import panels.PurchasePanel;
@@ -364,7 +365,7 @@ public class HomeFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void deshboardjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deshboardjButtonActionPerformed
-        switchPanel(new SellPanel());
+        switchPanel(new DeshboardPanel());
     }//GEN-LAST:event_deshboardjButtonActionPerformed
 
     private void returnjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnjButtonActionPerformed

@@ -395,4 +395,43 @@ public class InvoiceService extends DbConnector {
         log.info("Product List get from server " + invoiceDetailsDTO);
         return invoiceDetailsDTO;
     }
+    
+     public InvoiceDetailsDTO getProductByIdFromSell(String id) {
+
+        log.info("Product List getting by details id " + id);
+        String query = "SELECT * FROM `invoice_details` WHERE `id`='" + id + "' AND `action_type`='SELL'";
+
+        getQueryExecutor(query, new ReturnMySqlResponse() {
+            @Override
+            public void onGetResponse(ResultSet resultSet) {
+                try {
+                    while (resultSet.next()) {
+
+                        invoiceDetailsDTO = new InvoiceDetailsDTO(
+                                resultSet.getInt("id"),
+                                resultSet.getDouble("price"),
+                                resultSet.getInt("product_id"),
+                                resultSet.getInt("qty"),
+                                resultSet.getDouble("total"),
+                                resultSet.getString("expire_date"),
+                                resultSet.getString("product_location"),
+                                resultSet.getInt("sell_discount_in_perchance"),
+                                resultSet.getInt("invoice_id")
+                        );
+
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(InvoiceService.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                AlertUtils.error(error);
+            }
+        });
+
+        log.info("Product List get from server " + invoiceDetailsDTO);
+        return invoiceDetailsDTO;
+    }
 }

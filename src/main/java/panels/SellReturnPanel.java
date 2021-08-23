@@ -82,8 +82,7 @@ public class SellReturnPanel extends javax.swing.JPanel {
         });
 
         //Disable Default
-        subTotalEditText.setEditable(false);
-        grandTotalEditText.setEditable(false);
+      
         dueTextField.setEditable(false);
         invoiceNoEditText.setText(String.valueOf(INVOICE_NO));
         employeeNameEditText.setEditable(false);
@@ -116,9 +115,12 @@ public class SellReturnPanel extends javax.swing.JPanel {
         jLabel20 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
         addNewBut1 = new javax.swing.JButton();
+        addCardBut1 = new javax.swing.JButton();
+        saveBut = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         productsjTable = new javax.swing.JTable();
+        jTextField1 = new javax.swing.JTextField();
         gridbody = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -153,15 +155,13 @@ public class SellReturnPanel extends javax.swing.JPanel {
         productNameEditText = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        proRateEditText = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         jPanel13 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
         expiedDateEditText = new javax.swing.JTextField();
         proCatEditText = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        addCardBut = new javax.swing.JButton();
-        addCardBut1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
 
         jPanel1.setBackground(new java.awt.Color(146, 190, 208));
 
@@ -224,6 +224,20 @@ public class SellReturnPanel extends javax.swing.JPanel {
 
         addNewBut1.setText("New Memo");
 
+        addCardBut1.setText("Save & Print");
+        addCardBut1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addCardBut1ActionPerformed(evt);
+            }
+        });
+
+        saveBut.setText("Save");
+        saveBut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveButActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -237,6 +251,7 @@ public class SellReturnPanel extends javax.swing.JPanel {
             .addComponent(paidTextField)
             .addComponent(dueTextField)
             .addComponent(addNewBut1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(addCardBut1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel14)
@@ -245,6 +260,7 @@ public class SellReturnPanel extends javax.swing.JPanel {
                     .addComponent(jLabel19)
                     .addComponent(jLabel20))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(saveBut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,8 +289,12 @@ public class SellReturnPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dueTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(addCardBut1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(saveBut)
+                .addGap(29, 29, 29)
                 .addComponent(addNewBut1)
-                .addGap(144, 144, 144)
+                .addGap(45, 45, 45)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -293,18 +313,27 @@ public class SellReturnPanel extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(productsjTable);
 
+        jTextField1.setText("Search by Return Code");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
         );
 
-        gridbody.setLayout(new java.awt.GridLayout());
+        gridbody.setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel5.setBackground(new java.awt.Color(245, 242, 228));
 
@@ -395,7 +424,7 @@ public class SellReturnPanel extends javax.swing.JPanel {
 
         gridbody.add(jPanel7);
 
-        gridbody1.setLayout(new java.awt.GridLayout());
+        gridbody1.setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel8.setBackground(new java.awt.Color(238, 249, 232));
 
@@ -519,7 +548,7 @@ public class SellReturnPanel extends javax.swing.JPanel {
 
         gridbody1.add(jPanel10);
 
-        gridbody2.setLayout(new java.awt.GridLayout());
+        gridbody2.setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel11.setBackground(new java.awt.Color(228, 247, 249));
 
@@ -588,9 +617,11 @@ public class SellReturnPanel extends javax.swing.JPanel {
         jLabel10.setText("Name: ");
 
         jLabel13.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        jLabel13.setText("Rate:");
+        jLabel13.setText("Description:");
 
-        proRateEditText.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane2.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -599,32 +630,28 @@ public class SellReturnPanel extends javax.swing.JPanel {
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(productNameEditText, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(15, 15, 15)
-                        .addComponent(proRateEditText, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(116, Short.MAX_VALUE))
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(productNameEditText, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(jLabel10))
+                .addGap(13, 13, 13)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
                     .addComponent(productNameEditText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
+                .addGap(13, 13, 13)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(jLabel13))
-                    .addComponent(proRateEditText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(80, Short.MAX_VALUE))
+                        .addComponent(jLabel13)
+                        .addGap(0, 73, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         gridbody2.add(jPanel12);
@@ -645,22 +672,6 @@ public class SellReturnPanel extends javax.swing.JPanel {
         jLabel11.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel11.setText("Cetagory:");
 
-        addCardBut.setText("Save");
-        addCardBut.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addCardButActionPerformed(evt);
-            }
-        });
-
-        addCardBut1.setText("Save & Print");
-        addCardBut1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addCardBut1ActionPerformed(evt);
-            }
-        });
-
-        jTextField1.setText("Search by Return Code");
-
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
@@ -668,21 +679,12 @@ public class SellReturnPanel extends javax.swing.JPanel {
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel13Layout.createSequentialGroup()
-                                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(44, 44, 44))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
-                                .addComponent(addCardBut1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(addCardBut, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(proCatEditText, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(expiedDateEditText, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(49, 49, 49)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(proCatEditText, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(expiedDateEditText, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(106, 106, 106))
         );
         jPanel13Layout.setVerticalGroup(
@@ -696,12 +698,7 @@ public class SellReturnPanel extends javax.swing.JPanel {
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
                     .addComponent(expiedDateEditText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addCardBut)
-                    .addComponent(addCardBut1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
 
         gridbody2.add(jPanel13);
@@ -763,7 +760,7 @@ public class SellReturnPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_proQuantityEditTextActionPerformed
 
     private void productCodeEditTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_productCodeEditTextFocusLost
-        InvoiceDetailsDTO invoiceDetailsDTO = invoiceService.getProductByIdFromPurchase(productCodeEditText.getText());
+        InvoiceDetailsDTO invoiceDetailsDTO = invoiceService.getProductByIdFromSell(productCodeEditText.getText());
         setAllProductDetails(invoiceDetailsDTO);
     }//GEN-LAST:event_productCodeEditTextFocusLost
 
@@ -771,16 +768,16 @@ public class SellReturnPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_proCatEditTextActionPerformed
 
-    private void addCardButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCardButActionPerformed
+    private void saveButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButActionPerformed
 
-        addDataInTable(new CardProductDTO(productCodeEditText.getText(), productNameEditText.getText(),
-                proCatEditText.getText().toString(), proRateEditText.getText(),
-                proQuantityEditText.getText(), Double.valueOf(proRateEditText.getText()) * Double.valueOf(proQuantityEditText.getText()),
-                expiedDateEditText.getText(),"0"));
+//        addDataInTable(new CardProductDTO(productCodeEditText.getText(), productNameEditText.getText(),
+//                proCatEditText.getText().toString(), proRateEditText.getText(),
+//                proQuantityEditText.getText(), Double.valueOf(proRateEditText.getText()) * Double.valueOf(proQuantityEditText.getText()),
+//                expiedDateEditText.getText(),"0"));
 
         reset();
         sideBarTotal();
-    }//GEN-LAST:event_addCardButActionPerformed
+    }//GEN-LAST:event_saveButActionPerformed
 
     private void addCardBut1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCardBut1ActionPerformed
         // TODO add your handling code here:
@@ -795,7 +792,6 @@ public class SellReturnPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addCardBut;
     private javax.swing.JButton addCardBut1;
     private javax.swing.JButton addNewBut1;
     private javax.swing.JButton addNewCustomerButton;
@@ -846,16 +842,18 @@ public class SellReturnPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField paidTextField;
     private javax.swing.JTextField proCatEditText;
     private javax.swing.JTextField proQuantityEditText;
-    private javax.swing.JTextField proRateEditText;
     private javax.swing.JTextField productCodeEditText;
     private javax.swing.JTextField productNameEditText;
     private javax.swing.JTable productsjTable;
+    private javax.swing.JButton saveBut;
     private javax.swing.JTextField subTotalEditText;
     private javax.swing.JTextField vatEditText;
     // End of variables declaration//GEN-END:variables
@@ -893,7 +891,7 @@ public class SellReturnPanel extends javax.swing.JPanel {
 
     private void reset() {
         proQuantityEditText.setText("");
-        proRateEditText.setText("");
+       
         expiedDateEditText.setText("");
        
     }
@@ -913,7 +911,7 @@ public class SellReturnPanel extends javax.swing.JPanel {
         vatEditText.setEditable(isDisable);
         paidTextField.setEditable(isDisable);
         
-        addCardBut.setVisible(!isDisable);
+        saveBut.setVisible(!isDisable);
        
     }
 
@@ -930,7 +928,7 @@ public class SellReturnPanel extends javax.swing.JPanel {
         availableStockInText.setText(productCetagoryDTO.getStock() + " stock available");
         productNameEditText.setText(productCetagoryDTO.getName());
         proCatEditText.setText(productCetagoryDTO.getCetagoty());
-        proRateEditText.setText(String.valueOf(invoiceDetailsDTO.getPrice()));
+      
         expiedDateEditText.setText(String.valueOf(invoiceDetailsDTO.getExpireDate()));
       
     }
